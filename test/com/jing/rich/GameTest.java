@@ -9,15 +9,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
-/**
- * Created with IntellliJ IDEA.
- * User: Administrator
- * Date: 14-2-6
- * Time: 下午4:58
- * To change this template use File | Settings | File Templates.
- */
 public class GameTest {
     private Game game;
     private Map map;

@@ -1,14 +1,8 @@
 package com.jing.rich.exception;
 
-import com.jing.rich.Phrases;
+import com.jing.rich.tools.Phrases;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-3-1
- * Time: 下午2:50
- * To change this template use File | Settings | File Templates.
- */
+
 public class InitCashException extends GameException {
     @Override
     public String getMessage() {

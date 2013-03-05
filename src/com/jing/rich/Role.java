@@ -1,12 +1,8 @@
 package com.jing.rich;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-3-2
- * Time: 下午9:59
- * To change this template use File | Settings | File Templates.
- */
+
+import com.jing.rich.tools.Phrases;
+
 public class Role {
     private String name;
     private String symbol;

@@ -1,8 +1,9 @@
 package com.jing.rich.ground;
 
-import com.jing.rich.Phrases;
+import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
 import com.jing.rich.exception.UpdateException;
+import com.jing.rich.tools.Prop;
 
 /**
  * Created with IntelliJ IDEA.
@@ -90,7 +91,7 @@ public class Land extends AbstractGround {
 
     public String getName() {
         String name;
-        switch (level){
+        switch (level) {
             case 0:
                 name = Phrases.OPENSPACE;
                 break;
@@ -108,4 +109,5 @@ public class Land extends AbstractGround {
         }
         return name;
     }
+
 }

@@ -4,6 +4,9 @@ import com.jing.rich.command.*;
 import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.exception.GameException;
 import com.jing.rich.exception.InitCashException;
+import com.jing.rich.exception.WrongNumberForPlayerException;
+import com.jing.rich.tools.IO;
+import com.jing.rich.tools.Phrases;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +40,13 @@ public class Game {
 
     private void initCash() {
         IO.writeTo(Phrases.CASH_SET_TIPS);
-        IO.newLine();
         while (true) {
             String cashStr = IO.readLine();
             try {
                 setInitCash(cashStr);
                 return;
+            } catch (NumberFormatException e) {
+                IO.writeTo(Phrases.WRONG_COMMAND);
             } catch (InitCashException e) {
                 IO.writeTo(e.getMessage());
             }
@@ -64,16 +68,24 @@ public class Game {
 
     private void initPlayers() {
         IO.writeTo(Phrases.SELECT_PLAYER_TIP);
-        IO.newLine();
-        String playersStr = IO.readLine();
-        CommandParser parser = new CommandParser();
-        players = parser.parsePlayersInitCommand(playersStr);
-        setPlayers(players);
+        while (true) {
+            String playersStr = IO.readLine();
+            CommandParser parser = new CommandParser();
+            try {
+                players = parser.parsePlayersInitCommand(playersStr);
+                setPlayers(players);
+                break;
+            } catch (NumberFormatException e) {
+                IO.writeTo(Phrases.WRONG_COMMAND);
+            } catch (WrongNumberForPlayerException e) {
+                IO.writeTo(e.getMessage());
+            }
+        }
     }
 
     public void run() {
         int index = -1;
-        while (judgeGameOver()) {
+        while (!judgeGameOver()) {
             Player player = players.get((index + 1) % players.size());
             startAction(player, map);
             MapPrinter.printMap(map);
@@ -90,6 +102,7 @@ public class Game {
 
     ///xuyaogaiiiiiii
     public void startAction(Player player, Map map) {
+        player.reduceFreePass();
         if (player.isBogged()) {
             IO.writeTo(player.getRole().getName() + Phrases.LUN_KONG);
             return;
@@ -124,7 +137,7 @@ public class Game {
     }
 
     public boolean judgeRemovePlayer(Player player) {
-        if (player.bankrupt()) {
+        if (player.isBankrupt()) {
             IO.writeTo(player.getName() + Phrases.BANKRUPT);
             players.remove(player);
             return true;

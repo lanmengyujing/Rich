@@ -9,7 +9,7 @@ package com.jing.rich.ground;
  * To change this template use File | Settings | File Templates.
  */
 public class Mine extends AbstractGround {
-     private int points;
+    private int points;
 
     public Mine(int points) {
         this.points = points;

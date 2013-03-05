@@ -5,6 +5,8 @@ import com.jing.rich.exception.PropNotOwnException;
 import com.jing.rich.exception.UpdateException;
 import com.jing.rich.ground.*;
 import com.jing.rich.tools.GiftCard;
+import com.jing.rich.tools.IO;
+import com.jing.rich.tools.Phrases;
 import com.jing.rich.tools.Prop;
 
 import java.util.ArrayList;
@@ -55,17 +57,51 @@ public class Player {
         return role.getName();
     }
 
-    public boolean bankrupt() {
-        if(money > 0){
-            return false;
+    public boolean isBankrupt() {
+        boolean flag = false;
+        if (money <= 0) {
+            flag = true;
+            List<Land> landList = assets.getAssetsList();
+            for (Land land : landList) {
+                land.reSetting();
+            }
+            assets = null;
+            points = 0;
+            propList = null;
         }
-        return true;
+        return flag;
     }
 
     public void move(int step, Map map) {
         removePlayerFromPrePosition(map);
-        position = (position + step) % Phrases.GROUND_COUNT;
+        walkToFront(step, map);
         addPlayerToCurPosition(map);
+    }
+
+    private void walkToFront(int step, Map map) {
+        int pos;
+        for (int i = 1; i <= step; i++) {
+            pos = (position + i) % Phrases.GROUND_COUNT;
+            Ground ground = map.getGround(pos);
+            if (ground.hasProp()) {
+                Prop prop = ground.getProp();
+                if (prop.equals(Prop.ROAD_BLOCK)) {
+                    position = pos;
+                    ground.removeProp();
+                    IO.writeTo(getName() + Phrases.BE_BLOCK);
+                    return;
+                } else if (prop.equals(Prop.BOMB)) {
+                    position = Phrases.HOSPITAL_POS;
+                    cancelTimes = Phrases.IN_HOSPITAL_TIME;
+                    ground.removeProp();
+                    IO.writeTo(getName() + Phrases.SEND_TO_H);
+                    return;
+                } else {
+                    throw new AssertionError();
+                }
+            }
+        }
+        position = (position + step) % Phrases.GROUND_COUNT;
     }
 
     private void addPlayerToCurPosition(Map map) {
@@ -100,14 +136,11 @@ public class Player {
             placeAction = new PrisonAction(this, ground);
         } else if (ground instanceof StartPoint) {
             placeAction = new StartPointAction(this, ground);
-        }else if(ground instanceof Mine){
+        } else if (ground instanceof Mine) {
             placeAction = new MineAction(this, ground);
         }
         if (null != placeAction) {
             placeAction.action();
-        }
-        if (fuShenTime > 0) {
-            fuShenTime--;
         }
     }
 
@@ -142,12 +175,11 @@ public class Player {
             }
         } else {
             IO.writeTo(Phrases.CANNOT_UPDATE_LAND_NOT_OWN);
-            IO.newLine();
         }
     }
 
     public void sellLand(Land land) {
-       if (land.getOwner().equals(this)) {
+        if (land.getOwner().equals(this)) {
             assets.lost(land);
             money += land.calculateValue();
             land.reSetting();
@@ -185,6 +217,12 @@ public class Player {
         return fuShenTime;
     }
 
+    public void reduceFreePass() {
+        if (fuShenTime > 0) {
+            fuShenTime--;
+        }
+    }
+
     public void payToll(int toll) {
         this.money -= toll;
     }
@@ -193,23 +231,23 @@ public class Player {
         cancelTimes = 2;
     }
 
-    public boolean isBogged(){
+    public boolean isBogged() {
         boolean flag;
-        if(cancelTimes > 0){
+        if (cancelTimes > 0) {
             flag = true;
-        }else {
+        } else {
             flag = false;
         }
         cancelTimes--;
         return flag;
     }
 
-    public void addProp(Prop prop) {
+    public void buyProp(Prop prop) {
         propList.add(prop);
         points -= prop.getPoints();
     }
 
-    public void usePro(Prop prop, Ground ground){
+    public void usePro(Prop prop, Ground ground) {
         ground.addProp(prop);
         propList.remove(prop);
     }
@@ -219,10 +257,28 @@ public class Player {
     }
 
     public void sellProp(Prop prop) throws PropNotOwnException {
-        if(propList.contains(prop)){
+        if (propList.contains(prop)) {
+            points += prop.getPoints();
             propList.remove(prop);
-        }else {
+        } else {
             throw new PropNotOwnException();
         }
+    }
+
+    public void useRobot(Map map) throws PropNotOwnException {
+        if (propList.contains(Prop.ROBOT)) {
+            for (int i = 1; i <= 10; i++) {
+                int pos = (position + i) % Phrases.GROUND_COUNT;
+                Ground ground = map.getGround(pos);
+                if (ground.hasProp()) {
+                    ground.removeProp();
+                }
+            }
+            propList.remove(Prop.ROBOT);
+            IO.writeTo(Phrases.CLEAR_BLOCK_OR_BOMB);
+        } else {
+            throw new PropNotOwnException();
+        }
+
     }
 }

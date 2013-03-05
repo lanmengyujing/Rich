@@ -1,20 +1,14 @@
 package com.jing.rich.action;
 
-import com.jing.rich.IO;
-import com.jing.rich.Phrases;
+import com.jing.rich.tools.IO;
+import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
-import com.jing.rich.command.CommandParser;
+import com.jing.rich.CommandParser;
 import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.tools.Prop;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-3-1
- * Time: 下午3:51
- * To change this template use File | Settings | File Templates.
- */
+
 public class ToolHouseAction extends AbstractReachPlaceAction {
     public ToolHouseAction(Player player, Ground ground) {
         super(player, ground);
@@ -72,7 +66,7 @@ public class ToolHouseAction extends AbstractReachPlaceAction {
                     Phrases.NOT_ENOUGH_TIP2 + prop.getName() + Phrases.PROP);
             return;
         }
-        player.addProp(prop);
+        player.buyProp(prop);
         IO.writeTo(Phrases.SELECTED_PROP + prop.getName());
     }
 }

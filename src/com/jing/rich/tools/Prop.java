@@ -1,15 +1,8 @@
 package com.jing.rich.tools;
 
-import com.jing.rich.Phrases;
 import com.jing.rich.exception.PropNumberException;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-2-28
- * Time: 下午4:25
- * To change this template use File | Settings | File Templates.
- */
+
 public enum Prop {
     ROAD_BLOCK(Phrases.ROAD_BLOCK_NAME, 1, 50, Phrases.ROAD_BLOCK_SYMBOL),
     ROBOT(Phrases.ROBOT_NAME, 2, 30, Phrases.ROBOT_SYMBOL),
@@ -42,9 +35,9 @@ public enum Prop {
 
     public static Prop getPropByCode(int code) throws PropNumberException {
         Prop prop;
-        switch (code){
+        switch (code) {
             case 1:
-            prop = ROAD_BLOCK;
+                prop = ROAD_BLOCK;
                 break;
             case 2:
                 prop = ROBOT;
@@ -56,5 +49,9 @@ public enum Prop {
                 throw new PropNumberException();
         }
         return prop;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 }

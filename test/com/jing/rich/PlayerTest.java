@@ -4,12 +4,13 @@ import com.jing.rich.exception.PropNotOwnException;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.ground.Land;
 import com.jing.rich.tools.GiftCard;
+import com.jing.rich.tools.Phrases;
 import com.jing.rich.tools.Prop;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -43,7 +44,7 @@ public class PlayerTest {
         assertTrue( map.getGround(index) instanceof Land);
     }
 
-    @Ignore
+    @Test
     public void should_Player_in_0_when_last_position_69_and_roll_1_(){
         player.setPosition(69);
         player.move(1,map);
@@ -51,7 +52,7 @@ public class PlayerTest {
     }
 
 
-    @Ignore
+    @Test
     public void should_show_last_player_when_two_players_in_one_place(){
         Player jinBei = new Player(0, 1000,Role.jinBeiBei, new Assets());
         player.move(6,map);
@@ -164,21 +165,62 @@ public class PlayerTest {
         assertThat(player.getMoney(),is(1200));
     }
 
+
+
     @Test
     public void shouldPlayerBankruptWhenOutOfMoney(){
         Player jinBeiBei = new Player(0, 200,Role.jinBeiBei, new Assets());
         Ground ground = map.getGround(6);
         jinBeiBei.buyLand(ground);
-        assertThat(jinBeiBei.bankrupt(),is(true));
+        assertThat(jinBeiBei.isBankrupt(),is(true));
     }
 
     @Test (expected = PropNotOwnException.class)
     public void shouldPlayerLosePropWhenSellTool() throws PropNotOwnException {
-        player.addProp(Prop.BOMB);
+        player.buyProp(Prop.BOMB);
         player.sellProp(Prop.BOMB);
         player.sellProp(Prop.ROAD_BLOCK);
         assertThat(player.getProp().size(), is(0));
     }
 
+    @Test
+    public void shouldPlayerLosePointsWhenBuyTool() throws PropNotOwnException {
+        player.addPoints(100);
+        player.buyProp(Prop.BOMB);
+        assertThat(player.getPoints(), is(50));
+    }
 
+    @Test
+    public void shouldPlayerGetPointsWhenSellTool() throws PropNotOwnException {
+        player.addPoints(100);
+        player.buyProp(Prop.BOMB);
+        player.sellProp(Prop.BOMB);
+        assertThat(player.getPoints(), is(100));
+    }
+
+    @Test
+    public void shouldPlayerInHospitalWhenPassBomb(){
+        Ground ground = map.getGround(4);
+        ground.addProp(Prop.BOMB);
+        player.move(6, map);
+        assertThat(player.getPosition(),is(Phrases.HOSPITAL_POS));
+    }
+
+    @Test
+    public void shouldPlayerBeStoppedWhenPassBlock(){
+        Ground ground = map.getGround(4);
+        ground.addProp(Prop.ROAD_BLOCK);
+        player.move(6, map);
+        assertThat(player.getPosition(),is(4));
+    }
+
+    @Test
+    public void shouldPlayerMoveUseRobotWhenPassBlock() throws PropNotOwnException {
+        Ground ground = map.getGround(4);
+        ground.addProp(Prop.ROAD_BLOCK);
+        player.buyProp(Prop.ROBOT);
+        player.useRobot(map);
+        player.move(6, map);
+        assertThat(player.getPosition(),is(6));
+    }
 }

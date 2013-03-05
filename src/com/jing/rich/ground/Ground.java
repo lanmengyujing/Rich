@@ -1,6 +1,7 @@
 package com.jing.rich.ground;
 
 import com.jing.rich.Player;
+import com.jing.rich.exception.PropPositonException;
 import com.jing.rich.tools.Prop;
 
 /**
@@ -29,4 +30,5 @@ public interface Ground {
 
     public String getSign();
 
+    boolean hasProp();
 }

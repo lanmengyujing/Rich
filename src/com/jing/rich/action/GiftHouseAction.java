@@ -1,20 +1,13 @@
 package com.jing.rich.action;
 
-import com.jing.rich.IO;
-import com.jing.rich.Phrases;
+import com.jing.rich.tools.IO;
+import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
-import com.jing.rich.command.CommandParser;
+import com.jing.rich.CommandParser;
 import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.tools.GiftCard;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-3-1
- * Time: 下午3:50
- * To change this template use File | Settings | File Templates.
- */
 public class GiftHouseAction extends AbstractReachPlaceAction {
     public GiftHouseAction(Player player, Ground ground) {
         super(player, ground);
@@ -46,7 +39,7 @@ public class GiftHouseAction extends AbstractReachPlaceAction {
                 break;
             case 2:
                 giftCard = GiftCard.POINTSCARD;
-                giftTip =  Phrases.POINTS_TIP;
+                giftTip = Phrases.POINTS_TIP;
                 break;
             case 3:
                 giftCard = GiftCard.FUSHENCARD;
@@ -56,6 +49,6 @@ public class GiftHouseAction extends AbstractReachPlaceAction {
                 throw new AssertionError();
         }
         player.addGiftCard(giftCard);
-        IO.writeTo(giftTip );
+        IO.writeTo(giftTip);
     }
 }

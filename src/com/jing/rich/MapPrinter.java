@@ -46,8 +46,8 @@ public class MapPrinter {
         String sign;
         if (null == ground) {
             sign = " ";
-        }else{
-        sign = getSign(ground);
+        } else {
+            sign = getSign(ground);
         }
         System.out.print(sign);
     }
@@ -55,9 +55,11 @@ public class MapPrinter {
     private static String getSign(Ground ground) {
         String sign;
         Player player = ground.getCurPlayer();
-        if(null!= player){
+        if (null != player) {
             sign = player.getRole().getSymbol();
-        }else {
+        } else if (ground.hasProp()) {
+            sign = ground.getProp().getSymbol();
+        } else {
             sign = ground.getSign();
         }
         return sign;

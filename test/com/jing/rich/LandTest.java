@@ -2,16 +2,14 @@ package com.jing.rich;
 
 import com.jing.rich.exception.UpdateException;
 import com.jing.rich.ground.Land;
+import com.jing.rich.tools.Prop;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-2-28
- * Time: 下午9:40
- * To change this template use File | Settings | File Templates.
- */
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+
 public class LandTest {
     Land land;
     @Before
@@ -25,4 +23,12 @@ public class LandTest {
             land.upDate();
         }
     }
+
+    @Test
+    public void shouldHasPropWhenPutProp(){
+        land.addProp(Prop.BOMB);
+        assertThat(land.hasProp(),is(true));
+    }
+
+
 }

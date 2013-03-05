@@ -1,8 +1,10 @@
 package com.jing.rich.command;
 
+import com.jing.rich.CommandParser;
 import com.jing.rich.Player;
 import com.jing.rich.exception.CommandNotFoundException;
 
+import com.jing.rich.exception.GameException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,13 +13,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-3-3
- * Time: 下午3:29
- * To change this template use File | Settings | File Templates.
- */
+
 public class CommandParserTest {
     CommandParser parser;
     @Before
@@ -37,7 +33,7 @@ public class CommandParserTest {
     }
 
     @Test
-     public void testParsePlayersInitCommand() {
+     public void testParsePlayersInitCommand() throws Exception {
         List<Player> playerList = parser.parsePlayersInitCommand("1234");
         assertThat(playerList.get(0).getRole().getName(), is("钱夫人"));
         assertThat(playerList.get(1).getRole().getName(), is("阿土伯"));

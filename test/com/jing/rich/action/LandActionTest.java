@@ -12,13 +12,6 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-3-3
- * Time: 下午8:17
- * To change this template use File | Settings | File Templates.
- */
 public class LandActionTest {
     LandAction landAction ;
     Land land;

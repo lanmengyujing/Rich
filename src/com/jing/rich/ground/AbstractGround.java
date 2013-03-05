@@ -30,6 +30,7 @@ public abstract class AbstractGround implements Ground {
         return prop;
     }
 
+
     public void addProp(Prop prop) {
         if (this.prop == null) {
             this.prop = prop;
@@ -40,17 +41,24 @@ public abstract class AbstractGround implements Ground {
         prop = null;
     }
 
-    public void addPlayer(Player player){
+    public boolean hasProp() {
+        if (prop != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public void addPlayer(Player player) {
         playerList.add(player);
     }
 
-    public void removePlayer(Player player){
+    public void removePlayer(Player player) {
         playerList.remove(player);
     }
 
-    public Player getCurPlayer(){
+    public Player getCurPlayer() {
         Player player = null;
-        if(playerList.size() > 0){
+        if (playerList.size() > 0) {
             player = playerList.get(playerList.size() - 1);
         }
         return player;
@@ -73,4 +81,5 @@ public abstract class AbstractGround implements Ground {
         }
         return false;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.jing.rich;
 
 import com.jing.rich.ground.*;
+import com.jing.rich.tools.Phrases;
 
 /**
  * Created with IntelliJ IDEA.
@@ -79,7 +80,7 @@ public class Map {
         return landList;
     }
 
-    public void setGround(int index, Ground ground){
+    public void setGround(int index, Ground ground) {
         landList[index] = ground;
     }
 }

@@ -1,8 +1,8 @@
 package com.jing.rich.action;
 
-import com.jing.rich.IO;
+import com.jing.rich.tools.IO;
 import com.jing.rich.Map;
-import com.jing.rich.Phrases;
+import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
 import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.ground.Ground;
@@ -24,23 +24,15 @@ public class LandAction extends AbstractReachPlaceAction {
         Land land = (Land) ground;
         Player owner = land.getOwner();
         if (null == owner) {
-            BuyOpenLandOption(land);
+            parseBuyLandOption(land);
         } else if (owner.getName().equals(player.getName())) {
-            upDateLandOption(land);
+            parseUpDateLandOption(land);
         } else {
             PayTollToOwner(owner, land);
         }
     }
 
-    private void upDateLandOption(Land land) {
-        try {
-            parseUpDateLandOption(land);
-        } catch (CommandNotFoundException e) {
-            IO.writeTo(e.getMessage());
-        }
-    }
-
-    private void parseUpDateLandOption(Land land) throws CommandNotFoundException {
+    private void parseUpDateLandOption(Land land) {
         IO.writeTo(Phrases.UPDATE_LAND_TIP + land.getPrice() + Phrases.UPDATE_UNIT);
         while (true) {
             String command = IO.readLine();
@@ -51,24 +43,14 @@ public class LandAction extends AbstractReachPlaceAction {
             } else if (command.equals(Phrases.NO)) {
                 return;
             } else {
-                throw new CommandNotFoundException();
+                IO.writeTo(Phrases.WRONG_COMMAND);
             }
         }
     }
 
 
-    private void BuyOpenLandOption(Land land) {
+    private void parseBuyLandOption(Land land) {
         IO.writeTo(Phrases.OPENSPACE_TOBUY + land.getPrice() + Phrases.OPENSPACE_TOBUY_UNIT);
-        try {
-            parseBuyLandOption(land);
-            return;
-        } catch (CommandNotFoundException e) {
-            IO.writeTo(e.getMessage());
-        }
-
-    }
-
-    private void parseBuyLandOption(Land land) throws CommandNotFoundException {
         while (true) {
             String command = IO.readLine();
             if (command.equals(Phrases.YES)) {
@@ -78,7 +60,7 @@ public class LandAction extends AbstractReachPlaceAction {
             } else if (command.equals(Phrases.NO)) {
                 return;
             } else {
-                throw new CommandNotFoundException();
+                IO.writeTo(Phrases.WRONG_COMMAND);
             }
         }
     }
