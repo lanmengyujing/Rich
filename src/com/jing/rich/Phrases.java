@@ -1,12 +1,6 @@
 package com.jing.rich;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-2-06
- * Time: 下午9:08
- * To change this template use File | Settings | File Templates.
- */
+
 public class Phrases {
     public static final int GROUND_COUNT = 70;
     public static final String QIANFUREN = "钱夫人";
@@ -22,12 +16,12 @@ public class Phrases {
     public static final int[] pointsList = {20, 80, 100, 40, 80, 60};
 
     public static final String UPDATE_TOO_MUCH = "对不起，房子已是摩天楼，无法再升级!";
-    public static final String CASH_SET_TIPS = "请设置玩家初始资金，范围1000～50000（输入e，则默认设置为10000）:";
+    public static final String CASH_SET_TIPS = "请设置玩家初始资金，范围1000～50000（输入y，则默认设置为10000）:";
     public static final String WRONG_INIT_CASH = "您设置的资金有误，请重新输入：";
     public static final String SELECT_PLAYER_TIP = "请选择2~4位不重复玩家，输入编号即可。(1.钱夫人; 2.阿土伯; 3.孙小美; 4.金贝贝):”：如输入12。";
 
     public static final String COMMAND_PREFIX ="->待输入命令：" ;
-    public static final String[] COMMAND_LIST ={"roll", "block", "bomb", "robot", "sell", "sellTool", "query", "help", "quit"} ;
+    public static final String[] COMMAND_LIST ={"roll", "block", "bomb", "robot", "sell", "selltool", "query", "help", "quit"} ;
     public static final String WRONG_COMMAND = "对不起，您输入的指令有误，请重新输入：";
     public static final String HUIHE_JIESU = " 回合结束！";
     public static final String WRONG_INIT_FOR_PLAYER = "对不起，玩家设置输入错误，请重新输入：";
@@ -49,17 +43,16 @@ public class Phrases {
 
     public static final String UPDATE_LAND_TIP = "是否升级该处地产，";
     public static final String UPDATE_UNIT = "元（Y/N）?";
-    public static final String LAND_LEVEL = "房屋总共分为三级，每升一级的费用同购买空地的费用，各级符号如下：\n"+
-                                                    "空地     0\n"+
-                                                    "茅屋     1\n"+
-                                                    "洋房     2\n"+
-                                                    "摩天楼   3" ;
+
     public static final String OPENSPACE = "空地";
     public static final String MAO_WU = "茅屋";
     public static final String YANG_LOU = "洋房";
     public static final String MO_TIAN_LOU = "摩天楼";
     public static final String CANNOT_UPDATE_LAND_NOT_OWN = "对不起，此处不是您的房屋，无法升级！";
     public static final String UPDATE_LAND_SUCCESS = "房屋成功升级为";
+    public static final String SOLD_TIP = "房屋被成功出售！";
+    public static final String WRONG_SELL = "此地非您所有，无法出售！";
+    public static final String BEYOND_GROUND_COUNT = "对不起，您输入的房产数字有误！";
 
     public static final String GIFT_HOUSE_TIP = "欢迎光临礼品屋，请选择一件您喜欢的礼品：\n" +
                                                     "通过输入礼品编号选择礼品：\n" +
@@ -115,9 +108,6 @@ public class Phrases {
 
     public static final String MAGIC_HOUSE_TIP = "对不起，魔法师外出度假中，暂时不提供魔法。" ;
 
-
-    public static final String SOLD_TIP = "房屋被成功出售！";
-    public static final String WRONG_SELL = "此地非您所有，无法出售！";
     public static final String HELP_MENU =
             "roll        掷骰子命令，行走1~6步。步数由随即算法产生。\n" +
             "block n     玩家拥有路障后，可将路障放置到离当前位置前后10步的距离，任一玩家经过路障，都将被拦截。该道具一次有效。n是前后的相对距离，负数表示后方。\n" +
@@ -129,4 +119,11 @@ public class Phrases {
             "help        查看命令帮助\n" +
             "quit        强制退出\n";
 
+    public static final String BANKRUPT = "已经破产，被迫出局。";
+    public static final String GAMEOVER = "获胜！游戏结束。";
+    public static final String FOECE_EXIT = "您选择退出游戏，程序正在关闭。";
+
+    public static final String NUMBER_FOR_PROP_WRONG = "道具编号有误，请重新输入：";
+    public static final String NOT_OWN_PROP = "您没有此道具，无法出售。";
+    public static final String WRONG_NUMBER = "您输入的步数不在正确范围内，请重新输入（-10到10）";
 }

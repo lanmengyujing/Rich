@@ -1,7 +1,12 @@
 package com.jing.rich.command;
 
+import com.jing.rich.IO;
 import com.jing.rich.Map;
+import com.jing.rich.Phrases;
 import com.jing.rich.Player;
+import com.jing.rich.exception.GameException;
+import com.jing.rich.exception.PropNumberException;
+import com.jing.rich.tools.Prop;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,8 +21,10 @@ public class SellToolCommand implements Command {
     public SellToolCommand(int number) {
         this.number = number;
     }
+
     @Override
-    public void execute(Map map, Player player) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void execute(Map map, Player player) throws GameException{
+        Prop prop = Prop.getPropByCode(number);
+        player.sellProp(prop);
     }
 }

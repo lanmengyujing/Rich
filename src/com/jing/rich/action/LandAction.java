@@ -10,13 +10,7 @@ import com.jing.rich.ground.Hospital;
 import com.jing.rich.ground.Land;
 import com.jing.rich.ground.Prison;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-3-1
- * Time: 下午3:49
- * To change this template use File | Settings | File Templates.
- */
+
 public class LandAction extends AbstractReachPlaceAction {
     private Map map;
 
@@ -66,7 +60,7 @@ public class LandAction extends AbstractReachPlaceAction {
     private void BuyOpenLandOption(Land land) {
         IO.writeTo(Phrases.OPENSPACE_TOBUY + land.getPrice() + Phrases.OPENSPACE_TOBUY_UNIT);
         try {
-            parseBuyLandOption();
+            parseBuyLandOption(land);
             return;
         } catch (CommandNotFoundException e) {
             IO.writeTo(e.getMessage());
@@ -74,11 +68,11 @@ public class LandAction extends AbstractReachPlaceAction {
 
     }
 
-    private void parseBuyLandOption() throws CommandNotFoundException {
+    private void parseBuyLandOption(Land land) throws CommandNotFoundException {
         while (true) {
             String command = IO.readLine();
             if (command.equals(Phrases.YES)) {
-                player.buyLand(ground);
+                player.buyLand(land);
                 IO.writeTo(Phrases.BUY_LAND_SUCCESS + ground.getNumber() + Phrases.BUY_LAND_SUCCESS_AFTER);
                 return;
             } else if (command.equals(Phrases.NO)) {

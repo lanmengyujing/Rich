@@ -1,6 +1,7 @@
 package com.jing.rich;
 
 import com.jing.rich.action.*;
+import com.jing.rich.exception.PropNotOwnException;
 import com.jing.rich.exception.UpdateException;
 import com.jing.rich.ground.*;
 import com.jing.rich.tools.GiftCard;
@@ -52,6 +53,13 @@ public class Player {
 
     public String getName() {
         return role.getName();
+    }
+
+    public boolean bankrupt() {
+        if(money > 0){
+            return false;
+        }
+        return true;
     }
 
     public void move(int step, Map map) {
@@ -201,13 +209,20 @@ public class Player {
         points -= prop.getPoints();
     }
 
-    public void usePro(Prop prop){
-
+    public void usePro(Prop prop, Ground ground){
+        ground.addProp(prop);
+        propList.remove(prop);
     }
 
     public List<Prop> getProp() {
         return propList;
     }
 
-
+    public void sellProp(Prop prop) throws PropNotOwnException {
+        if(propList.contains(prop)){
+            propList.remove(prop);
+        }else {
+            throw new PropNotOwnException();
+        }
+    }
 }

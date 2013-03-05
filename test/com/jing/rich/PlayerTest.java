@@ -1,8 +1,10 @@
 package com.jing.rich;
 
+import com.jing.rich.exception.PropNotOwnException;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.ground.Land;
 import com.jing.rich.tools.GiftCard;
+import com.jing.rich.tools.Prop;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,7 +35,7 @@ public class PlayerTest {
         assertThat(player.getMoney(),is(1000));
     }
 
-    @Ignore
+    @Test
     public void should_player1_in_6_when_roll_6(){
         player.move(6, map);
         int index = player.getPosition();
@@ -146,5 +148,37 @@ public class PlayerTest {
         player.reachPlaceActions(map);
         assertThat(player.getPoints(),is(80));
     }
+
+    @Test
+    public void shouldPlayerLoseMoneyWhenBuyLand(){
+        Ground ground = map.getGround(6);
+        player.buyLand(ground);
+        assertThat(player.getMoney(),is(800));
+    }
+
+    @Test
+    public void shouldPlayerGetMoneyWhenSellLand(){
+        Ground ground = map.getGround(6);
+        player.buyLand(ground);
+        player.sellLand((Land)ground);
+        assertThat(player.getMoney(),is(1200));
+    }
+
+    @Test
+    public void shouldPlayerBankruptWhenOutOfMoney(){
+        Player jinBeiBei = new Player(0, 200,Role.jinBeiBei, new Assets());
+        Ground ground = map.getGround(6);
+        jinBeiBei.buyLand(ground);
+        assertThat(jinBeiBei.bankrupt(),is(true));
+    }
+
+    @Test (expected = PropNotOwnException.class)
+    public void shouldPlayerLosePropWhenSellTool() throws PropNotOwnException {
+        player.addProp(Prop.BOMB);
+        player.sellProp(Prop.BOMB);
+        player.sellProp(Prop.ROAD_BLOCK);
+        assertThat(player.getProp().size(), is(0));
+    }
+
 
 }

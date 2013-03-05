@@ -2,8 +2,8 @@ package com.jing.rich;
 
 import com.jing.rich.command.*;
 import com.jing.rich.exception.CommandNotFoundException;
+import com.jing.rich.exception.GameException;
 import com.jing.rich.exception.InitCashException;
-import com.jing.rich.exception.WrongNumberForPlayerException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +18,10 @@ import java.util.List;
 public class Game {
     private List<Player> players = new ArrayList<Player>();
     private Map map;
-    public static int INIT_CASH = 1000;
+    public static int INIT_CASH = 10000;
 
-    public Game() {
-    }
-
-    public int getPlayerAmount() {
-        return players.size();
-    }
-
-    public List<Player> getPlayerList() {
-        return players;
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     public void init() {
@@ -57,7 +50,7 @@ public class Game {
     }
 
     private void setInitCash(String cashStr) throws InitCashException {
-        if (cashStr.equals("e")) {
+        if (cashStr.equals("y")) {
             Game.INIT_CASH = 10000;
             return;
         }
@@ -75,29 +68,43 @@ public class Game {
         String playersStr = IO.readLine();
         CommandParser parser = new CommandParser();
         players = parser.parsePlayersInitCommand(playersStr);
+        setPlayers(players);
     }
 
     public void run() {
         int index = -1;
-        while (true) {
+        while (judgeGameOver()) {
             Player player = players.get((index + 1) % players.size());
-            startAction(player,map);
+            startAction(player, map);
             MapPrinter.printMap(map);
+            if (judgeRemovePlayer(player)) {
+                index--;
+            }
             index++;
         }
+        Player player = getWinner();
+        if (null != player) {
+            IO.writeTo(player.getName() + Phrases.GAMEOVER);
+        }
     }
-      ///xuyaogaiiiiiii
+
+    ///xuyaogaiiiiiii
     public void startAction(Player player, Map map) {
-        if(player.isBogged()){
+        if (player.isBogged()) {
             IO.writeTo(player.getRole().getName() + Phrases.LUN_KONG);
             return;
         }
         while (true) {
-            Command command = getCommand(player);
-            command.execute(map, player);
-            if (command instanceof RollCommand) {
-                IO.writeTo(player.getRole().getName()+ Phrases.HUIHE_JIESU);
-                break;
+            try {
+                Command command = getCommand(player);
+                command.execute(map, player);
+                if (command instanceof RollCommand) {
+                    IO.writeTo(player.getRole().getName() + Phrases.HUIHE_JIESU);
+                    break;
+                }
+            } catch (GameException e) {
+                IO.writeTo(e.getMessage());
+                continue;
             }
         }
     }
@@ -113,6 +120,34 @@ public class Game {
             } catch (CommandNotFoundException e) {
                 IO.writeTo(e.getMessage());
             }
+        }
+    }
+
+    public boolean judgeRemovePlayer(Player player) {
+        if (player.bankrupt()) {
+            IO.writeTo(player.getName() + Phrases.BANKRUPT);
+            players.remove(player);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean judgeGameOver() {
+        if (getPlayerAmount() == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public int getPlayerAmount() {
+        return players.size();
+    }
+
+    public Player getWinner() {
+        if (judgeGameOver()) {
+            return players.get(0);
+        } else {
+            return null;
         }
     }
 }

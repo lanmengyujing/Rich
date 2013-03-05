@@ -1,6 +1,7 @@
 package com.jing.rich.tools;
 
 import com.jing.rich.Phrases;
+import com.jing.rich.exception.PropNumberException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,5 +38,23 @@ public enum Prop {
 
     public String getName() {
         return name;
+    }
+
+    public static Prop getPropByCode(int code) throws PropNumberException {
+        Prop prop;
+        switch (code){
+            case 1:
+            prop = ROAD_BLOCK;
+                break;
+            case 2:
+                prop = ROBOT;
+                break;
+            case 3:
+                prop = BOMB;
+                break;
+            default:
+                throw new PropNumberException();
+        }
+        return prop;
     }
 }

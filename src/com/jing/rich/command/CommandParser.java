@@ -7,26 +7,16 @@ import com.jing.rich.exception.WrongNumberForPlayerException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-2-11
- * Time: 下午4:16
- * To change this template use File | Settings | File Templates.
- */
 public class CommandParser {
 
     public Command ParseCommand(String commandString) throws CommandNotFoundException {
         Command command = null;
         String[] commands = commandString.split(" ");
         if (commands.length > 2 || commands.length < 1){
-            IO.writeTo(Phrases.WRONG_COMMAND);
-            command =  null;
+            throw new CommandNotFoundException();
         }
-
         String commandStr = commands[0].toLowerCase();
         int number = parseSecondInput(commands);
-
         if(commandStr.equals(Phrases.COMMAND_LIST[0])){
             command = new RollCommand();
         }else if(commandStr.equals(Phrases.COMMAND_LIST[1])){

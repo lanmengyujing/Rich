@@ -21,6 +21,21 @@ public class QueryCommand implements Command {
         int money = player.getMoney();
         int points = player.getPoints();
         Assets assets = player.getAssets();
+        int[] landCount = getLandCount(assets);
+        List<Prop> propList = player.getProp();
+        int[] propCount = getPropCount(propList);
+        IO.writeTo(Phrases.MONEY + money + Phrases.MONEY_UNIT);
+        IO.writeTo(Phrases.POINTS + points + Phrases.POINT_UNIT);
+        IO.writeTo(Phrases.ASSETS + Phrases.OPENSPACE + landCount[0] + Phrases.ASSETS_UNIT +
+                    Phrases.MAO_WU + landCount[1] + Phrases.ASSETS_UNIT +
+                    Phrases.YANG_LOU + landCount[2] + Phrases.ASSETS_UNIT +
+                     Phrases.MO_TIAN_LOU + landCount[3] + Phrases.ASSETS_UNIT);
+        IO.writeTo(Phrases.PROP + Phrases.ROAD_BLOCK_NAME + propCount[0] + Phrases.PROP_UNIT +
+                Phrases.ROBOT_NAME + propCount[1]  + Phrases.PROP_UNIT  +
+                Phrases.BOMB_NAME + propCount[2]  + Phrases.PROP_UNIT );
+    }
+
+    private int[] getLandCount(Assets assets) {
         int openSpace = 0;
         int maoWu = 0;
         int yangLou = 0;
@@ -28,7 +43,7 @@ public class QueryCommand implements Command {
         for(Land land: assets.getAssetsList()){
             switch (land.getLevel()){
                 case 0:
-                openSpace++;
+                    openSpace++;
                     break;
                 case 1:
                     maoWu++;
@@ -43,7 +58,11 @@ public class QueryCommand implements Command {
                     throw new AssertionError();
             }
         }
-        List<Prop> propList = player.getProp();
+        int[] count = {openSpace, maoWu, yangLou, moTianLou};
+        return count;
+    }
+
+    private int[] getPropCount(List<Prop> propList) {
         int roadBlock = 0;
         int robot = 0;
         int bomb = 0;
@@ -62,14 +81,10 @@ public class QueryCommand implements Command {
                     throw new AssertionError();
             }
         }
-        IO.writeTo(Phrases.MONEY + money + Phrases.MONEY_UNIT);
-        IO.writeTo(Phrases.POINTS + points + Phrases.POINT_UNIT);
-        IO.writeTo(Phrases.ASSETS + Phrases.OPENSPACE + openSpace + Phrases.ASSETS_UNIT +
-                    Phrases.MAO_WU + maoWu + Phrases.ASSETS_UNIT +
-                    Phrases.YANG_LOU + yangLou + Phrases.ASSETS_UNIT +
-                     Phrases.MO_TIAN_LOU + moTianLou + Phrases.ASSETS_UNIT);
-        IO.writeTo(Phrases.PROP + Phrases.ROAD_BLOCK_NAME + roadBlock + Phrases.PROP_UNIT +
-                Phrases.ROBOT_NAME + robot + Phrases.PROP_UNIT  +
-                Phrases.BOMB_NAME + bomb + Phrases.PROP_UNIT );
+        int[] count = {roadBlock, robot,bomb};
+        return count;
+
     }
+
+
 }

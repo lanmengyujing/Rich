@@ -2,6 +2,7 @@ package com.jing.rich.command;
 
 import com.jing.rich.Map;
 import com.jing.rich.Player;
+import com.jing.rich.exception.GameException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,5 +12,5 @@ import com.jing.rich.Player;
  * To change this template use File | Settings | File Templates.
  */
 public interface Command {
-    public void execute(Map map, Player player);
+    public void execute(Map map, Player player) throws GameException;
 }

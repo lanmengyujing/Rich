@@ -5,13 +5,13 @@ import com.jing.rich.Phrases;
 /**
  * Created with IntelliJ IDEA.
  * User: dell
- * Date: 13-3-1
- * Time: 下午2:50
+ * Date: 13-3-5
+ * Time: 下午6:12
  * To change this template use File | Settings | File Templates.
  */
-public class InitCashException extends GameException {
+public class WrongNumberForStep extends GameException {
     @Override
     public String getMessage() {
-        return Phrases.WRONG_INIT_CASH;
+        return Phrases.WRONG_NUMBER;
     }
 }

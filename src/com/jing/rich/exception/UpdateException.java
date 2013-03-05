@@ -10,7 +10,7 @@ import com.jing.rich.Phrases;
  * To change this template use File | Settings | File Templates.
  */
 public class UpdateException extends GameException {
-
+    @Override
     public String getMessage() {
         return Phrases.UPDATE_TOO_MUCH;
     }

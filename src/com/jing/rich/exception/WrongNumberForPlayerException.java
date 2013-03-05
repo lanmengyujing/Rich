@@ -10,6 +10,7 @@ import com.jing.rich.Phrases;
  * To change this template use File | Settings | File Templates.
  */
 public class WrongNumberForPlayerException extends GameException{
+    @Override
     public String getMessage() {
         return Phrases.WRONG_INIT_FOR_PLAYER;
     }
