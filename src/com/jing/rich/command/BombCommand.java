@@ -11,7 +11,11 @@ import com.jing.rich.Player;
  * To change this template use File | Settings | File Templates.
  */
 public class BombCommand implements Command {
+    private int number;
 
+    public BombCommand(int number) {
+        this.number = number;
+    }
 
     @Override
     public void execute(Map map, Player player) {

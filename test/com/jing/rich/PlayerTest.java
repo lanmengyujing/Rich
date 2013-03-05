@@ -7,9 +7,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -120,19 +117,19 @@ public class PlayerTest {
 
     @Test
     public void shouldPlayerIncreasePointsWhenSelectPointsCard(){
-        player.addGiftCard(GiftCard.PointsCard);
+        player.addGiftCard(GiftCard.POINTSCARD);
         assertThat(player.getPoints(),is(200));
     }
 
     @Test
     public void shouldPlayerIncreaseMoneyWhenSelectBonusCard(){
-        player.addGiftCard(GiftCard.BonusCard);
+        player.addGiftCard(GiftCard.BONUSCARD);
         assertThat(player.getMoney(),is(3000));
     }
 
     @Test
     public void shouldPlayerHasFushenWhenSelectFuShenCard(){
-        player.addGiftCard(GiftCard.FuShenCard);
+        player.addGiftCard(GiftCard.FUSHENCARD);
         assertThat(player.getFuShenTimes(),is(5));
     }
 
@@ -150,10 +147,4 @@ public class PlayerTest {
         assertThat(player.getPoints(),is(80));
     }
 
-    @Test
-    public void shouldPlayerHasPropWhenPassToolHouseAndBuyProp(){
-        player.move(28,map);
-        player.reachPlaceActions(map);
-       // assertThat(player.getProps(),is(Prop.));
-    }
 }

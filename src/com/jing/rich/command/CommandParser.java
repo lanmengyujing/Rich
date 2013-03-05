@@ -10,26 +10,35 @@ import java.util.List;
 /**
  * Created with IntelliJ IDEA.
  * User: dell
- * Date: 13-3-1
+ * Date: 13-2-11
  * Time: 下午4:16
  * To change this template use File | Settings | File Templates.
  */
 public class CommandParser {
 
-    public Command ParseCommand(String commandStr) throws CommandNotFoundException {
+    public Command ParseCommand(String commandString) throws CommandNotFoundException {
         Command command = null;
+        String[] commands = commandString.split(" ");
+        if (commands.length > 2 || commands.length < 1){
+            IO.writeTo(Phrases.WRONG_COMMAND);
+            command =  null;
+        }
+
+        String commandStr = commands[0].toLowerCase();
+        int number = parseSecondInput(commands);
+
         if(commandStr.equals(Phrases.COMMAND_LIST[0])){
             command = new RollCommand();
         }else if(commandStr.equals(Phrases.COMMAND_LIST[1])){
-            command = new BlockCommand();
+            command = new BlockCommand(number);
         }else if(commandStr.equals( Phrases.COMMAND_LIST[2])){
-            command = new BombCommand();
+            command = new BombCommand(number);
         }else if(commandStr.equals(Phrases.COMMAND_LIST[3])){
             command = new RobotCommand();
         }else if(commandStr.equals( Phrases.COMMAND_LIST[4])){
-            command = new SellCommand();
+            command = new SellCommand(number);
         }else if(commandStr.equals(Phrases.COMMAND_LIST[5])){
-            command = new SellToolCommand();
+            command = new SellToolCommand(number);
         }else if(commandStr.equals(Phrases.COMMAND_LIST[6])){
             command = new QueryCommand();
         }else if(commandStr.equals(Phrases.COMMAND_LIST[7])){
@@ -41,6 +50,17 @@ public class CommandParser {
             throw new CommandNotFoundException();
         }
         return command;
+    }
+
+    private int parseSecondInput(String[] command){
+        int code = 0;
+        try {
+            if (command.length == 2)
+                code = Integer.parseInt(command[1]);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+        return code;
     }
 
     public List<Player> parsePlayersInitCommand(String command) {

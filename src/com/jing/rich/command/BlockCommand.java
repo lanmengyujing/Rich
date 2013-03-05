@@ -12,6 +12,12 @@ import com.jing.rich.Player;
  */
 public class BlockCommand implements Command {
 
+    private int number;
+
+    public BlockCommand(int number) {
+        this.number = number;
+    }
+
     @Override
     public void execute(Map map, Player player) {
 

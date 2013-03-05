@@ -50,13 +50,13 @@ public class Player {
         return money;
     }
 
+    public String getName() {
+        return role.getName();
+    }
+
     public void move(int step, Map map) {
         removePlayerFromPrePosition(map);
-        if (position + step < 70) {
-            position += step;
-        } else {
-            position = 0;
-        }
+        position = (position + step) % Phrases.GROUND_COUNT;
         addPlayerToCurPosition(map);
     }
 
@@ -126,7 +126,7 @@ public class Player {
     }
 
     public void upDateLand(Land land) {
-        if (this.equals(land.getOwner())) {
+        if (getName().equals(land.getOwner().getName())) {
             try {
                 land.upDate();
             } catch (UpdateException e) {
@@ -139,22 +139,17 @@ public class Player {
     }
 
     public void sellLand(Land land) {
-        if (land.getOwner().equals(this)) {
+       if (land.getOwner().equals(this)) {
             assets.lost(land);
-            money += PayForLand(land);
+            int soldMoney = land.reSetting();
+            money += soldMoney;
         }
     }
 
-    private int PayForLand(Land land) {
-        int price = land.getPrice();
-        int upDateMoney = land.getLevel() * price;
-        return 2 * (upDateMoney + price);
-    }
-
     public void addGiftCard(GiftCard giftCard) {
-        if (giftCard.equals(GiftCard.BonusCard)) {
+        if (giftCard.equals(GiftCard.BONUSCARD)) {
             addMoney(giftCard.getValue());
-        } else if (giftCard.equals(GiftCard.PointsCard)) {
+        } else if (giftCard.equals(GiftCard.POINTSCARD)) {
             addPoints(giftCard.getValue());
         } else {
             setFuShenTime(5);
@@ -203,9 +198,16 @@ public class Player {
 
     public void addProp(Prop prop) {
         propList.add(prop);
+        points -= prop.getPoints();
     }
 
     public void usePro(Prop prop){
 
     }
+
+    public List<Prop> getProp() {
+        return propList;
+    }
+
+
 }

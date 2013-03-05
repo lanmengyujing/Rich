@@ -1,5 +1,7 @@
 package com.jing.rich.action;
 
+import com.jing.rich.IO;
+import com.jing.rich.Phrases;
 import com.jing.rich.Player;
 import com.jing.rich.ground.Ground;
 
@@ -17,6 +19,6 @@ public class MagicHouseAction extends AbstractReachPlaceAction {
 
     @Override
     public void action() {
-
+        IO.writeTo(Phrases.MAGIC_HOUSE_TIP);
     }
 }

@@ -81,13 +81,13 @@ public class Game {
         int index = -1;
         while (true) {
             Player player = players.get((index + 1) % players.size());
-            startAction(player);
+            startAction(player,map);
             MapPrinter.printMap(map);
             index++;
         }
     }
-
-    private void startAction(Player player) {
+      ///xuyaogaiiiiiii
+    public void startAction(Player player, Map map) {
         if(player.isBogged()){
             IO.writeTo(player.getRole().getName() + Phrases.LUN_KONG);
             return;

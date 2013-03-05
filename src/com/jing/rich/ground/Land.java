@@ -1,5 +1,6 @@
 package com.jing.rich.ground;
 
+import com.jing.rich.Phrases;
 import com.jing.rich.Player;
 import com.jing.rich.exception.UpdateException;
 
@@ -91,5 +92,26 @@ public class Land extends AbstractGround {
     public String toString() {
         String str = "Land";
         return str;
+    }
+
+    public String getName() {
+        String name;
+        switch (level){
+            case 0:
+                name = Phrases.OPENSPACE;
+                break;
+            case 1:
+                name = Phrases.MAO_WU;
+                break;
+            case 2:
+                name = Phrases.YANG_LOU;
+                break;
+            case 3:
+                name = Phrases.MO_TIAN_LOU;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        return name;
     }
 }

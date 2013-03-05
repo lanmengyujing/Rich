@@ -1,5 +1,7 @@
 package com.jing.rich.tools;
 
+import com.jing.rich.Phrases;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dell
@@ -7,18 +9,29 @@ package com.jing.rich.tools;
  * Time: 下午4:25
  * To change this template use File | Settings | File Templates.
  */
-public class Prop {
+public enum Prop {
+    ROAD_BLOCK(Phrases.ROAD_NAME, 1, 50, Phrases.ROAD_SYMBOL),
+    ROBOT(Phrases.ROBOT_NAME, 2, 30, Phrases.ROBOT_SYMBOL),
+    BOMB(Phrases.BOMB_NAME, 3, 50, Phrases.BOMB_SYMBOL);
+
+    private String name;
     private int code;
     private int points;
     private String symbol;
 
-    public static Prop RoadBlock = new Prop(1, 50 ,"#");
-    public static Prop Robot = new Prop(2, 30 , " ");
-    public static Prop Bomb = new Prop(3, 50, "@");
 
-    private Prop(int code, int points, String symbol) {
+    private Prop(String name, int code, int points, String symbol) {
+        this.name = name;
         this.code = code;
         this.points = points;
         this.symbol = symbol;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public String getName() {
+        return name;
     }
 }

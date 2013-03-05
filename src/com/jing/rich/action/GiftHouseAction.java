@@ -22,7 +22,7 @@ public class GiftHouseAction extends AbstractReachPlaceAction {
 
     public void action() {
         IO.writeTo(Phrases.GIFT_HOUSE_TIP);
-        IO.newLine();
+        IO.writeTo(Phrases.INPUT_TIP);
         CommandParser parser = new CommandParser();
         String commandStr = IO.readLine();
         try {
@@ -38,19 +38,24 @@ public class GiftHouseAction extends AbstractReachPlaceAction {
 
     private void parseGift(int num) {
         GiftCard giftCard = null;
+        String giftTip = null;
         switch (num) {
             case 1:
-                giftCard = GiftCard.BonusCard;
+                giftCard = GiftCard.BONUSCARD;
+                giftTip = Phrases.BOUNUS_TIP;
                 break;
             case 2:
-                giftCard = GiftCard.PointsCard;
+                giftCard = GiftCard.POINTSCARD;
+                giftTip =  Phrases.POINTS_TIP;
                 break;
             case 3:
-                giftCard = GiftCard.FuShenCard;
+                giftCard = GiftCard.FUSHENCARD;
+                giftTip = Phrases.FUSHEN_TIP;
                 break;
             default:
                 throw new AssertionError();
         }
         player.addGiftCard(giftCard);
+        IO.writeTo(giftTip );
     }
 }

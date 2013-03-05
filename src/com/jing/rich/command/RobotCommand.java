@@ -11,7 +11,6 @@ import com.jing.rich.Player;
  * To change this template use File | Settings | File Templates.
  */
 public class RobotCommand implements Command {
-
     @Override
     public void execute(Map map, Player player) {
         //To change body of implemented methods use File | Settings | File Templates.

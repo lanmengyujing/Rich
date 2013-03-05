@@ -41,6 +41,7 @@ public class IO {
         try {
             writer.write(str);
             writer.flush();
+            newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }

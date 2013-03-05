@@ -4,7 +4,6 @@ import com.jing.rich.Assets;
 import com.jing.rich.Map;
 import com.jing.rich.Player;
 import com.jing.rich.Role;
-import com.jing.rich.ground.Ground;
 import com.jing.rich.ground.Land;
 import com.jing.rich.tools.GiftCard;
 import org.junit.Before;
@@ -41,7 +40,7 @@ public class LandActionTest {
 
     @Test
     public void testPayTollToOwnerWhenHasFuShenCard() throws Exception {
-        qFuRen.addGiftCard(GiftCard.FuShenCard);
+        qFuRen.addGiftCard(GiftCard.FUSHENCARD);
         int toll = landAction.PayTollToOwner(land.getOwner(),land);
         assertThat(toll,is(0));
     }

@@ -24,38 +24,55 @@ public class ToolHouseAction extends AbstractReachPlaceAction {
     public void action() {
         IO.writeTo(Phrases.TOOLHOUSE_WELCOME);
         IO.writeTo(Phrases.TOOLHOUSE_TIPS);
-        IO.newLine();
-        if(player.getPoints() < 30){
-            return;
+        IO.writeTo(Phrases.TOOLHOUSE_EXIT_TIPS);
+        while (true) {
+            if (player.getPoints() < Phrases.MIN_POINTS) {
+                IO.writeTo(Phrases.POINTS_NOT_ENOUGH);
+                return;
+            }
+            if (player.getProp().size() == Phrases.MAX_PROP_COUNT) {
+                IO.writeTo(Phrases.HAVE_MAX_PROP);
+                return;
+            }
+            IO.writeTo(Phrases.TOOLHOUSE_SELECT_TIPS);
+            String commandStr = IO.readLine();
+            if (commandStr.equals(Phrases.EXIT)) {
+                IO.writeTo(Phrases.AFTER_EXIT);
+                return;
+            }
+            try {
+                CommandParser parser = new CommandParser();
+                int num = parser.parsePropCommand(commandStr);
+                parseProp(num);
+            } catch (NumberFormatException e) {
+                IO.writeTo(Phrases.WRONG_COMMAND);
+            } catch (CommandNotFoundException e) {
+                IO.writeTo(Phrases.WRONG_COMMAND);
+            }
         }
-        CommandParser parser = new CommandParser();
-        String commandStr = IO.readLine();
-        try {
-            int num = parser.parsePropCommand(commandStr);
-            parseProp(num);
-        } catch (NumberFormatException e) {
-            IO.writeTo(Phrases.WRONG_SELECTION);
-        } catch (CommandNotFoundException e) {
-            IO.writeTo(Phrases.WRONG_SELECTION);
-        }
-
     }
 
     private void parseProp(int num) {
         Prop prop = null;
         switch (num) {
             case 1:
-                prop = Prop.RoadBlock;
+                prop = Prop.ROAD_BLOCK;
                 break;
             case 2:
-                prop = Prop.Robot;
+                prop = Prop.ROBOT;
                 break;
             case 3:
-                prop = Prop.Bomb;
+                prop = Prop.BOMB;
                 break;
             default:
                 throw new AssertionError();
         }
+        if (player.getPoints() < prop.getPoints()) {
+            IO.writeTo(Phrases.NOT_ENOUGH_TIP1 + prop.getPoints() +
+                    Phrases.NOT_ENOUGH_TIP2 + prop.getName() + Phrases.PROP);
+            return;
+        }
         player.addProp(prop);
+        IO.writeTo(Phrases.SELECTED_PROP + prop.getName());
     }
 }
