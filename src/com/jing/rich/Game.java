@@ -97,7 +97,6 @@ public class Game {
             command.execute(map, player);
             if (command instanceof RollCommand) {
                 IO.writeTo(player.getRole().getName()+ Phrases.HUIHE_JIESU);
-                IO.writeTo(System.getProperty("line.separator"));
                 break;
             }
         }
@@ -113,7 +112,6 @@ public class Game {
                 return command;
             } catch (CommandNotFoundException e) {
                 IO.writeTo(e.getMessage());
-                IO.writeTo(System.getProperty("line.separator"));
             }
         }
     }

@@ -37,7 +37,5 @@ public class MainTest {
         //Command command = new SellCommand(6);
         //command.execute(map, player);
         game.startAction(player,map);
-
-
     }
 }

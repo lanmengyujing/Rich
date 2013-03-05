@@ -10,7 +10,7 @@ import com.jing.rich.Phrases;
  * To change this template use File | Settings | File Templates.
  */
 public enum Prop {
-    ROAD_BLOCK(Phrases.ROAD_NAME, 1, 50, Phrases.ROAD_SYMBOL),
+    ROAD_BLOCK(Phrases.ROAD_BLOCK_NAME, 1, 50, Phrases.ROAD_BLOCK_SYMBOL),
     ROBOT(Phrases.ROBOT_NAME, 2, 30, Phrases.ROBOT_SYMBOL),
     BOMB(Phrases.BOMB_NAME, 3, 50, Phrases.BOMB_SYMBOL);
 
@@ -29,6 +29,10 @@ public enum Prop {
 
     public int getPoints() {
         return points;
+    }
+
+    public int getCode() {
+        return code;
     }
 
     public String getName() {

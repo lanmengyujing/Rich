@@ -20,6 +20,7 @@ public class Phrases {
 
     static int priceList[] = {200, 500, 300};
     public static final int[] pointsList = {20, 80, 100, 40, 80, 60};
+
     public static final String UPDATE_TOO_MUCH = "对不起，房子已是摩天楼，无法再升级!";
     public static final String CASH_SET_TIPS = "请设置玩家初始资金，范围1000～50000（输入e，则默认设置为10000）:";
     public static final String WRONG_INIT_CASH = "您设置的资金有误，请重新输入：";
@@ -36,6 +37,15 @@ public class Phrases {
     public static final String BUY_LAND_SUCCESS_AFTER = "号空地";
     public static final String YES = "y";
     public static final String NO = "n";
+
+    public static final String MONEY = "资金： ";
+    public static final String MONEY_UNIT = "元";
+    public static final String POINTS = "点数： ";
+    public static final String POINT_UNIT = "点";
+    public static final String ASSETS = "地产： ";
+    public static final String ASSETS_UNIT = "处；";
+    public static final String PROP = "道具";
+    public static final String PROP_UNIT = "个；";
 
     public static final String UPDATE_LAND_TIP = "是否升级该处地产，";
     public static final String UPDATE_UNIT = "元（Y/N）?";
@@ -71,7 +81,7 @@ public class Phrases {
     public static final String ROLL_TIP = "的土地，需交过路费";
     public static final String GET_ROLL_TIP = "得到过路费";
     public static final String PAY_ROLL_TIP = "缴纳过路费";
-    public static final String MONEY_UNIT = "元";
+
     public static final String OWNER_IN_H = "主人正在医院，可免过路费";
     public static final String OWNER_IN_P ="主人正在监狱，可免过路费" ;
     public static final String IN_PRISON_TIP = "非常不幸，您走进了监狱，将被拘留2天。";
@@ -94,9 +104,8 @@ public class Phrases {
     public static final String EXIT = "f";
     public static final String NOT_ENOUGH_TIP1 = "您当前剩余的点数为";
     public static final String NOT_ENOUGH_TIP2 = "元，不足以购买";
-    public static final String PROP = "道具";
-    public static final String ROAD_NAME = "路障";
-    public static final String ROAD_SYMBOL = "#";
+    public static final String ROAD_BLOCK_NAME = "路障";
+    public static final String ROAD_BLOCK_SYMBOL = "#";
     public static final String BOMB_NAME = "炸弹" ;
     public static final String BOMB_SYMBOL = "@";
     public static final String ROBOT_NAME = "机器娃娃";
@@ -109,4 +118,15 @@ public class Phrases {
 
     public static final String SOLD_TIP = "房屋被成功出售！";
     public static final String WRONG_SELL = "此地非您所有，无法出售！";
+    public static final String HELP_MENU =
+            "roll        掷骰子命令，行走1~6步。步数由随即算法产生。\n" +
+            "block n     玩家拥有路障后，可将路障放置到离当前位置前后10步的距离，任一玩家经过路障，都将被拦截。该道具一次有效。n是前后的相对距离，负数表示后方。\n" +
+            "bomb n      玩家拥有炸弹后，可将炸弹放置到离当前位置前后10步的距离，任一玩家经过在该位置，将被炸伤，送往医院，住院三天。n是前后的相对距离，负数表示后方。\n" +
+            "robot       使用该道具，可清扫前方路面上10步以内的其它道具，如炸弹、路障。\n" +
+            "sell x      出售自己的房产，x为地图上的绝对位置，即地产的编号。\n" +
+            "sellTool x  出售道具，x为道具编号\n" +
+            "query       显示自家资产信息\n" +
+            "help        查看命令帮助\n" +
+            "quit        强制退出\n";
+
 }

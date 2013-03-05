@@ -141,8 +141,8 @@ public class Player {
     public void sellLand(Land land) {
        if (land.getOwner().equals(this)) {
             assets.lost(land);
-            int soldMoney = land.reSetting();
-            money += soldMoney;
+            money += land.calculateValue();
+            land.reSetting();
         }
     }
 

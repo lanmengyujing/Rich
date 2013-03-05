@@ -1,6 +1,8 @@
 package com.jing.rich.command;
 
+import com.jing.rich.IO;
 import com.jing.rich.Map;
+import com.jing.rich.Phrases;
 import com.jing.rich.Player;
 
 /**
@@ -15,6 +17,6 @@ public class HelpCommand implements Command {
 
     @Override
     public void execute(Map map, Player player) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        IO.writeTo(Phrases.HELP_MENU);
     }
 }

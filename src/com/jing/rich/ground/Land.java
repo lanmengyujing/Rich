@@ -12,7 +12,7 @@ import com.jing.rich.exception.UpdateException;
  * To change this template use File | Settings | File Templates.
  */
 public class Land extends AbstractGround {
-    private int level; //the rank of the house ,-1 means land has no owner
+    private int level;
     private Player owner;
     private int price;
 
@@ -74,19 +74,13 @@ public class Land extends AbstractGround {
     /*!
         重置土地，变为空地
     */
-    public int reSetting() {
-        level = -1;
+    public void reSetting() {
+        level = 0;
         owner = null;
-        int value = calculateCost();
-        return value;
     }
 
-    private int calculateCost() {
-        int cost = 0;
-        if (level > -1) {
-            cost = (price + level * price) * 2;
-        }
-        return cost;
+    public int calculateValue() {
+        return (price + level * price) * 2;
     }
 
     public String toString() {

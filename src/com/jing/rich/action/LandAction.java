@@ -32,13 +32,13 @@ public class LandAction extends AbstractReachPlaceAction {
         if (null == owner) {
             BuyOpenLandOption(land);
         } else if (owner.getName().equals(player.getName())) {
-            upDateLand(land);
+            upDateLandOption(land);
         } else {
             PayTollToOwner(owner, land);
         }
     }
 
-    private void upDateLand(Land land) {
+    private void upDateLandOption(Land land) {
         try {
             parseUpDateLandOption(land);
         } catch (CommandNotFoundException e) {
