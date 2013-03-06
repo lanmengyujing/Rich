@@ -6,13 +6,7 @@ import com.jing.rich.tools.Prop;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dell
- * Date: 13-2-24
- * Time: 下午12:15
- * To change this template use File | Settings | File Templates.
- */
+
 public abstract class AbstractGround implements Ground {
     protected int number;
     protected Prop prop;
