@@ -3,7 +3,7 @@ package com.jing.rich.action;
 import com.jing.rich.tools.IO;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
-import com.jing.rich.CommandParser;
+import com.jing.rich.tools.CommandParser;
 import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.tools.Prop;

@@ -1,6 +1,7 @@
 package com.jing.rich;
 
 import com.jing.rich.ground.Ground;
+import com.jing.rich.tools.Assets;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,8 +22,8 @@ public class GameTest {
         game = new  Game();
         map = Map.getInstance();
         playerList  = new ArrayList<Player>();
-        aTuBo = new Player(0, 1000, Role.aTuBo, new Assets());
-        jinBeiBei = new Player(0, 200, Role.jinBeiBei, new Assets());
+        aTuBo = new Player(0, 1000, Role.A_TU_BO, new Assets());
+        jinBeiBei = new Player(0, 200, Role.JIN_BEI_BEI, new Assets());
     }
 
    @Test

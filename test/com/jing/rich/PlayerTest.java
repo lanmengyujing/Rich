@@ -3,6 +3,7 @@ package com.jing.rich;
 import com.jing.rich.exception.PropNotOwnException;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.ground.Land;
+import com.jing.rich.tools.Assets;
 import com.jing.rich.tools.GiftCard;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.tools.Prop;
@@ -27,7 +28,7 @@ public class PlayerTest {
     Map map;
     @Before
     public void setup(){
-        player = new Player(0, 1000,Role.aTuBo, new Assets());
+        player = new Player(0, 1000,Role.A_TU_BO, new Assets());
         map = Map.getInstance();
     }
 
@@ -54,7 +55,7 @@ public class PlayerTest {
 
     @Test
     public void should_show_last_player_when_two_players_in_one_place(){
-        Player jinBei = new Player(0, 1000,Role.jinBeiBei, new Assets());
+        Player jinBei = new Player(0, 1000,Role.JIN_BEI_BEI, new Assets());
         player.move(6,map);
         jinBei.move(6,map);
         Ground ground = map.getGround(6);
@@ -63,8 +64,8 @@ public class PlayerTest {
 
     @Test
     public void should_show_pre_player_when_one_player_left(){
-        Player jinBei = new Player(0, 1000,Role.jinBeiBei, new Assets());
-        Player qFuRen = new Player(0, 1000,Role.qianFuRen, new Assets());
+        Player jinBei = new Player(0, 1000,Role.JIN_BEI_BEI, new Assets());
+        Player qFuRen = new Player(0, 1000,Role.QIAN_FU_REN, new Assets());
         player.move(6,map);
         jinBei.move(6,map);
         qFuRen.move(6,map);
@@ -92,7 +93,7 @@ public class PlayerTest {
 
     @Test
     public void shouldPlayerBuyFailWhenLandHasOwner(){
-        Player qFuRen = new Player(0, 1000,Role.qianFuRen, new Assets());
+        Player qFuRen = new Player(0, 1000,Role.QIAN_FU_REN, new Assets());
         Ground ground = map.getGround(6);
         Land land = (Land)ground;
         player.buyLand(land);
@@ -169,7 +170,7 @@ public class PlayerTest {
 
     @Test
     public void shouldPlayerBankruptWhenOutOfMoney(){
-        Player jinBeiBei = new Player(0, 200,Role.jinBeiBei, new Assets());
+        Player jinBeiBei = new Player(0, 200,Role.JIN_BEI_BEI, new Assets());
         Ground ground = map.getGround(6);
         jinBeiBei.buyLand(ground);
         assertThat(jinBeiBei.isBankrupt(),is(true));

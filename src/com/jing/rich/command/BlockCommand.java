@@ -1,12 +1,9 @@
 package com.jing.rich.command;
 
 import com.jing.rich.Map;
+import com.jing.rich.exception.*;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
-import com.jing.rich.exception.GameException;
-import com.jing.rich.exception.PropNotOwnException;
-import com.jing.rich.exception.PropPositonException;
-import com.jing.rich.exception.WrongNumberForStep;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.tools.Prop;
 
@@ -29,6 +26,8 @@ public class BlockCommand implements Command {
             Ground ground = map.getGround(position);
             if (ground.hasProp()) {
                 throw new PropPositonException();
+            }else if(ground.hasPlayer()){
+                throw new PositionHasPlayerException();
             }
             player.usePro(Prop.ROAD_BLOCK, ground);
         }

@@ -1,6 +1,13 @@
 package com.jing.rich;
 
 import com.jing.rich.ground.Ground;
+import com.jing.rich.ground.Land;
+import com.jing.rich.tools.Phrases;
+import enigma.console.Console;
+import enigma.console.TextAttributes;
+import enigma.core.Enigma;
+
+import java.awt.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,8 +55,27 @@ public class MapPrinter {
             sign = " ";
         } else {
             sign = getSign(ground);
+            setOutPutColor(ground);
         }
         System.out.print(sign);
+        Game.console.setTextAttributes(new TextAttributes(Game.defaultForeground, Game.defaultBackground));
+    }
+
+    private static void setOutPutColor(Ground ground) {
+        if (ground.hasPlayer()) {
+            Color foreground = ground.getCurPlayer().getRole().getColor();
+            setColor(foreground);
+        } else if (ground instanceof Land) {
+            if (((Land) ground).getOwner() != null) {
+                Color foreground = ((Land) ground).getOwner().getRole().getColor();
+                setColor(foreground);
+            }
+        }
+    }
+
+    private static void setColor(Color foreground) {
+        TextAttributes attrs = new TextAttributes(foreground, Game.defaultBackground);
+        Game.console.setTextAttributes(attrs);
     }
 
     private static String getSign(Ground ground) {

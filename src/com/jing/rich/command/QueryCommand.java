@@ -2,6 +2,7 @@ package com.jing.rich.command;
 
 import com.jing.rich.*;
 import com.jing.rich.ground.Land;
+import com.jing.rich.tools.Assets;
 import com.jing.rich.tools.IO;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.tools.Prop;

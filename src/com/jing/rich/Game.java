@@ -5,9 +5,14 @@ import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.exception.GameException;
 import com.jing.rich.exception.InitCashException;
 import com.jing.rich.exception.WrongNumberForPlayerException;
+import com.jing.rich.tools.CommandParser;
 import com.jing.rich.tools.IO;
 import com.jing.rich.tools.Phrases;
+import enigma.console.Console;
+import enigma.console.TextAttributes;
+import enigma.core.Enigma;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +24,14 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Game {
+    public static final Console console = Enigma.getConsole("Rich Game");
+    public static Color defaultForeground = Color.white;
+    public static Color defaultBackground = Color.black;
+    static {
+        TextAttributes defautAttrs = new TextAttributes(defaultForeground, defaultBackground);
+        console.setTextAttributes(defautAttrs);
+    }
+
     private List<Player> players = new ArrayList<Player>();
     private Map map;
     public static int INIT_CASH = 10000;
@@ -100,7 +113,6 @@ public class Game {
         }
     }
 
-    ///xuyaogaiiiiiii
     public void startAction(Player player, Map map) {
         player.reduceFreePass();
         if (player.isBogged()) {

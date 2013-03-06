@@ -33,6 +33,9 @@ public class LandAction extends AbstractReachPlaceAction {
     }
 
     private void parseUpDateLandOption(Land land) {
+        if (land.getLevel() == 3) {
+            return;
+        }
         IO.writeTo(Phrases.UPDATE_LAND_TIP + land.getPrice() + Phrases.UPDATE_UNIT);
         while (true) {
             String command = IO.readLine();

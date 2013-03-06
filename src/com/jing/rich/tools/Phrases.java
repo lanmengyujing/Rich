@@ -31,7 +31,7 @@ public class Phrases {
     public static final String OPENSPACE_TOBUY = "是否购买该处空地，";
     public static final String OPENSPACE_TOBUY_UNIT = "元（Y/N）?";
     public static final String BUY_LAND_SUCCESS = "您成功购买了";
-    public static final String BUY_LAND_SUCCESS_AFTER = "号空地";
+    public static final String BUY_LAND_SUCCESS_AFTER = "号空地。";
     public static final String YES = "y";
     public static final String NO = "n";
 
@@ -130,10 +130,12 @@ public class Phrases {
     public static final String NOT_OWN_PROP = "您没有此道具。";
     public static final String WRONG_NUMBER = "您输入的步数不在正确范围内，请重新输入（-10到10）";
     public static final String LAND_HAS_PROP = "此处已经存在道具，您不能在此位置放道具。";
-
+    public static final String POSITION_HAS_PLAYER = "此处有玩家，不能在此处放道具";
     public static final String SEND_TO_H = "被炸伤，送往医院，住院三天。";
     public static final int IN_HOSPITAL_TIME = 3;
 
     public static final String CLEAR_BLOCK_OR_BOMB = "成功清除前方10步内的路障或炸弹。";
     public static final String BE_BLOCK = "被路障挡住去路，停留在此";
+    public static final String SELLTOOL = "成功出售一个";
+
 }

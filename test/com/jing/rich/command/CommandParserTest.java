@@ -1,10 +1,9 @@
 package com.jing.rich.command;
 
-import com.jing.rich.CommandParser;
+import com.jing.rich.tools.CommandParser;
 import com.jing.rich.Player;
 import com.jing.rich.exception.CommandNotFoundException;
 
-import com.jing.rich.exception.GameException;
 import org.junit.Before;
 import org.junit.Test;
 

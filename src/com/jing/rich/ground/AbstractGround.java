@@ -48,6 +48,14 @@ public abstract class AbstractGround implements Ground {
         return false;
     }
 
+    @Override
+    public boolean hasPlayer() {
+        if (playerList.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     public void addPlayer(Player player) {
         playerList.add(player);
     }

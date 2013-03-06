@@ -1,6 +1,6 @@
 package com.jing.rich.action;
 
-import com.jing.rich.Assets;
+import com.jing.rich.tools.Assets;
 import com.jing.rich.Map;
 import com.jing.rich.Player;
 import com.jing.rich.Role;
@@ -18,8 +18,8 @@ public class LandActionTest {
     Player qFuRen;
     @Before
     public void setUp() throws Exception {
-        qFuRen = new Player(0, 1000, Role.qianFuRen, new Assets());
-        Player jinBei = new Player(0, 1000,Role.jinBeiBei, new Assets());
+        qFuRen = new Player(0, 1000, Role.QIAN_FU_REN, new Assets());
+        Player jinBei = new Player(0, 1000,Role.JIN_BEI_BEI, new Assets());
         land = new Land(200);
         land.setOwner(jinBei);
         landAction = new LandAction(qFuRen,land, Map.getInstance());
