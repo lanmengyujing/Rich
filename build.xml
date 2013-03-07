@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="The Rich" default="build" basedir=".">
+    <property name="src" value="src"/>
+	<property name="test" value="test"/>
+    <property name="dest" value="dest"/>
+    <property name="Rich" value="Rich.jar"/>
+    <property name="lib" value="lib"/>
+    <path id="refPath">
+        <pathelement location="${lib}/enigma-shell.jar"/>
+		<pathelement location="${lib}/enigma-console.jar"/>
+		<pathelement location="${lib}/enigma-all_en_US.jar"/>
+		<pathelement location="${lib}/enigma-i18n.jar"/>
+		<pathelement location="${lib}/junit-4.11.jar"/>
+    </path>
+
+    <target name="init" depends="clean">
+        <mkdir dir="${dest}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${dest}" classpathref="refPath" includeantruntime="false" encoding="UTF-8" />
+		<javac srcdir="${test}" destdir="${dest}" classpathref="refPath" includeantruntime="false" encoding="UTF-8" />
+    </target>
+
+    <target name="junit" depends="compile">
+        <junit printsummary="true">
+            <classpath >
+                <pathelement path="${dest}"/>
+                <fileset dir="${lib}">
+                    <include name="junit-4.11.jar"/>
+                </fileset>
+            </classpath>
+            <batchtest fork="yes" >
+                <fileset dir="${test}">
+                    <include name="RichTest.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+    <target name="build" depends="junit">
+        <jar jarfile="${Rich}" basedir="${dest}">
+             <manifest>  
+                <attribute name="Main-Class" value="RichGameClient"/>
+                <attribute name="Class-Path" value="${lib}/enigma-console.jar"/>
+            </manifest> 
+        </jar>
+    </target>
+    <target name="run" depends="build">
+        <java classname="Run" classpath="${lib}"/>
+    </target>
+    <target name="clean">
+        <delete dir="${dest}" />
+        <delete file="${Rich}" />
+    </target>
+    <target name="rerun" depends="clean,run">
+        <ant target="clean" />
+        <ant target="run" />
+    </target>
+</project>
