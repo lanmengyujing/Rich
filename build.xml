@@ -32,7 +32,7 @@
             </classpath>
             <batchtest fork="yes" >
                 <fileset dir="${test}">
-                    <include name="RichTest.java"/>
+                    <include name="GameTest.java"/>
                 </fileset>
             </batchtest>
         </junit>
@@ -46,7 +46,7 @@
         </jar>
     </target>
     <target name="run" depends="build">
-        <java classname="Run" classpath="${lib}"/>
+        <java classname="RichGameClient" classpath="${Rich}"/>
     </target>
     <target name="clean">
         <delete dir="${dest}" />
