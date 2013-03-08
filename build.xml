@@ -4,6 +4,7 @@
 	<property name="test" value="test"/>
     <property name="dest" value="dest"/>
     <property name="Rich" value="Rich.jar"/>
+	<property name="main_class" value="com.jing.rich.RichGameClient"/>
     <property name="lib" value="lib"/>
     <path id="refPath">
         <pathelement location="${lib}/enigma-shell.jar"/>
@@ -18,7 +19,8 @@
     </target>
 
     <target name="compile" depends="init">
-        <javac srcdir="${src}" destdir="${dest}" classpathref="refPath" includeantruntime="false" encoding="UTF-8" />
+        <javac srcdir="${src}" destdir="${dest}" classpathref="refPath" includeantruntime="false" 
+		encoding="UTF-8" />
 		<javac srcdir="${test}" destdir="${dest}" classpathref="refPath" includeantruntime="false" encoding="UTF-8" />
     </target>
 
@@ -32,7 +34,7 @@
             </classpath>
             <batchtest fork="yes" >
                 <fileset dir="${test}">
-                    <include name="GameTest.java"/>
+                    <include name="**/*Test.java"/>
                 </fileset>
             </batchtest>
         </junit>
@@ -40,13 +42,13 @@
     <target name="build" depends="junit">
         <jar jarfile="${Rich}" basedir="${dest}">
              <manifest>  
-                <attribute name="Main-Class" value="RichGameClient"/>
+                <attribute name="Main-Class" value="${main_class}"/>
                 <attribute name="Class-Path" value="${lib}/enigma-console.jar"/>
             </manifest> 
         </jar>
     </target>
     <target name="run" depends="build">
-        <java classname="RichGameClient" classpath="${Rich}"/>
+        <java classname="${main_class}" classpath="${Rich}"/>
     </target>
     <target name="clean">
         <delete dir="${dest}" />
