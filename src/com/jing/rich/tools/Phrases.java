@@ -20,7 +20,7 @@ public class Phrases {
     public static final String CASH_SET_TIPS = "请设置玩家初始资金，范围1000～50000（输入y，则默认设置为10000）:";
     public static final String WRONG_INIT_CASH = "您设置的资金有误，请重新输入：";
     public static final String SELECT_PLAYER_TIP = "请选择2~4位不重复玩家，输入编号即可。(1.钱夫人; 2.阿土伯; 3.孙小美; 4.金贝贝):”：如输入12。";
-
+    public static final String CHOSEN_PLAYERS = "您选择了";
     public static final String COMMAND_PREFIX = "->待输入命令：";
     public static final String[] COMMAND_LIST = {"roll", "block", "bomb", "robot", "sell", "selltool", "query", "help", "quit"};
     public static final String WRONG_COMMAND = "对不起，您输入的指令有误，请重新输入：";
@@ -137,5 +137,7 @@ public class Phrases {
     public static final String CLEAR_BLOCK_OR_BOMB = "成功清除前方10步内的路障或炸弹。";
     public static final String BE_BLOCK = "被路障挡住去路，停留在此";
     public static final String SELLTOOL = "成功出售一个";
+
+    public static final int PRISON_TIME = 2;
 
 }

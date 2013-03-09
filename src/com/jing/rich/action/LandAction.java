@@ -1,10 +1,9 @@
 package com.jing.rich.action;
 
+import com.jing.rich.RichMap;
 import com.jing.rich.tools.IO;
-import com.jing.rich.Map;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
-import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.ground.Hospital;
 import com.jing.rich.ground.Land;
@@ -12,11 +11,11 @@ import com.jing.rich.ground.Prison;
 
 
 public class LandAction extends AbstractReachPlaceAction {
-    private Map map;
+    private RichMap richMap;
 
-    public LandAction(Player player, Ground ground, Map map) {
+    public LandAction(Player player, Ground ground, RichMap richMap) {
         super(player, ground);
-        this.map = map;
+        this.richMap = richMap;
     }
 
     @Override
@@ -71,10 +70,10 @@ public class LandAction extends AbstractReachPlaceAction {
     public int PayTollToOwner(Player owner, Land land) {
         int toll = land.getToll();
         IO.writeTo(Phrases.ROLL_TIP_PRE + owner.getRole().getName() + Phrases.ROLL_TIP + toll);
-        if (map.getGround(owner.getPosition()) instanceof Hospital) {
+        if (richMap.getGround(owner.getPosition()) instanceof Hospital) {
             toll = 0;
             IO.writeTo(Phrases.OWNER_IN_H);
-        } else if ((map.getGround(owner.getPosition()) instanceof Prison)) {
+        } else if ((richMap.getGround(owner.getPosition()) instanceof Prison)) {
             toll = 0;
             IO.writeTo(Phrases.OWNER_IN_P);
         } else if (player.getFuShenTimes() > 0) {

@@ -2,10 +2,7 @@ package com.jing.rich;
 
 import com.jing.rich.ground.Ground;
 import com.jing.rich.ground.Land;
-import com.jing.rich.tools.Phrases;
-import enigma.console.Console;
 import enigma.console.TextAttributes;
-import enigma.core.Enigma;
 
 import java.awt.*;
 
@@ -18,11 +15,11 @@ import java.awt.*;
  */
 public class MapPrinter {
 
-    public static void printMap(Map map) {
+    public static void printMap(RichMap richMap) {
 
         int index = 0;
         int backIndex = 69;
-        Ground[] groundList = map.getGroundList();
+        Ground[] groundList = richMap.getGroundList();
         for (int i = 0; i < 29; i++) {
             outPut(groundList[index]);
             index++;

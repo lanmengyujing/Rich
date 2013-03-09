@@ -6,8 +6,9 @@ import com.jing.rich.exception.UpdateException;
 import com.jing.rich.ground.*;
 import com.jing.rich.tools.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +25,7 @@ public class Player {
     private int points = 0;
     private int fuShenTime = 0;
     private int cancelTimes = 0;
-    private List<Prop> propList = new ArrayList<Prop>();
+    private Map<Prop, Integer> props = new HashMap<Prop, Integer>();
 
     public Player(int position, int money, Role role, Assets assets) {
         this.position = position;
@@ -64,22 +65,22 @@ public class Player {
             }
             assets = null;
             points = 0;
-            propList = null;
+            props = null;
         }
         return flag;
     }
 
-    public void move(int step, Map map) {
-        removePlayerFromPrePosition(map);
-        walkToFront(step, map);
-        addPlayerToCurPosition(map);
+    public void move(int step, RichMap richMap) {
+        removePlayerFromPrePosition(richMap);
+        walkToFront(step, richMap);
+        addPlayerToCurPosition(richMap);
     }
 
-    private void walkToFront(int step, Map map) {
+    private void walkToFront(int step, RichMap richMap) {
         int pos;
         for (int i = 1; i <= step; i++) {
             pos = (position + i) % Phrases.GROUND_COUNT;
-            Ground ground = map.getGround(pos);
+            Ground ground = richMap.getGround(pos);
             if (ground.hasProp()) {
                 Prop prop = ground.getProp();
                 if (prop.equals(Prop.ROAD_BLOCK)) {
@@ -101,26 +102,26 @@ public class Player {
         position = (position + step) % Phrases.GROUND_COUNT;
     }
 
-    private void addPlayerToCurPosition(Map map) {
+    private void addPlayerToCurPosition(RichMap richMap) {
         int position = getPosition();
-        Ground ground = map.getGround(position);
+        Ground ground = richMap.getGround(position);
         ground.addPlayer(this);
     }
 
-    private void removePlayerFromPrePosition(Map map) {
-        Ground ground = map.getGround(position);
+    private void removePlayerFromPrePosition(RichMap richMap) {
+        Ground ground = richMap.getGround(position);
         if (!(ground instanceof StartPoint)) {
             ground.removePlayer(this);
         }
     }
 
-    public void reachPlaceActions(Map map) {
+    public void reachPlaceActions(RichMap richMap) {
         int position = getPosition();
-        Ground ground = map.getGround(position);
+        Ground ground = richMap.getGround(position);
 
         ReachPlaceAction placeAction = null;
         if (ground instanceof Land) {
-            placeAction = new LandAction(this, ground, map);
+            placeAction = new LandAction(this, ground, richMap);
         } else if (ground instanceof GiftHouse) {
             placeAction = new GiftHouseAction(this, ground);
         } else if (ground instanceof Hospital) {
@@ -225,7 +226,7 @@ public class Player {
     }
 
     public void goPrison() {
-        cancelTimes = 2;
+        cancelTimes = Phrases.PRISON_TIME;
     }
 
     public boolean isBogged() {
@@ -240,38 +241,47 @@ public class Player {
     }
 
     public void buyProp(Prop prop) {
-        propList.add(prop);
+        if (props.containsKey(prop)) {
+            Integer value = props.get(prop);
+            props.put(prop, value + 1);
+        } else {
+            props.put(prop, 1);
+        }
         points -= prop.getPoints();
     }
 
     public void usePro(Prop prop, Ground ground) {
         ground.addProp(prop);
-        propList.remove(prop);
+        props.put(prop, props.get(prop) - 1);
     }
 
-    public List<Prop> getProp() {
-        return propList;
+    public Map<Prop, Integer> getProp() {
+        return props;
     }
 
     public void sellProp(Prop prop) throws PropNotOwnException {
-        if (propList.contains(prop)) {
+        if (props.containsKey(prop)) {
             points += prop.getPoints();
-            propList.remove(prop);
+            props.put(prop, props.get(prop) - 1);
         } else {
             throw new PropNotOwnException();
         }
     }
 
-    public void useRobot(Map map) throws PropNotOwnException {
-        if (propList.contains(Prop.ROBOT)) {
+    public void useRobot(RichMap richMap) throws PropNotOwnException {
+        if (props.containsKey(Prop.ROBOT)) {
             for (int i = 1; i <= 10; i++) {
                 int pos = (position + i) % Phrases.GROUND_COUNT;
-                Ground ground = map.getGround(pos);
+                Ground ground = richMap.getGround(pos);
                 if (ground.hasProp()) {
                     ground.removeProp();
                 }
             }
-            propList.remove(Prop.ROBOT);
+            if (props.get(Prop.ROBOT) == 1) {
+                props.remove(Prop.ROBOT);
+            } else {
+                props.put(Prop.ROBOT, props.get(Prop.ROBOT) - 1);
+            }
             IO.writeTo(Phrases.CLEAR_BLOCK_OR_BOMB);
         } else {
             throw new PropNotOwnException();

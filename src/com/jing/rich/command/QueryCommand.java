@@ -7,29 +7,44 @@ import com.jing.rich.tools.IO;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.tools.Prop;
 
-import java.util.List;
+import java.util.Map;
 
 
 public class QueryCommand implements Command {
-
-
     @Override
-    public void execute(Map map, Player player) {
+    public void execute(RichMap richMap, Player player) {
+        queryMoney(player);
+        queryPoints(player);
+        queryAssets(player);
+        queryProp(player);
+    }
+
+    private void queryProp(Player player) {
+        Map<Prop, Integer> props = player.getProp();
+        for(Map.Entry<Prop, Integer> entry: props.entrySet()) {
+            System.out.print(entry.getKey().getName() + " "+ entry.getValue() + Phrases.PROP_UNIT);
+        }
+        IO.newLine();
+    }
+
+    private void queryMoney(Player player) {
         int money = player.getMoney();
+        IO.writeTo(Phrases.MONEY + money + Phrases.MONEY_UNIT);
+    }
+
+    private void queryPoints(Player player) {
         int points = player.getPoints();
+        IO.writeTo(Phrases.POINTS + points + Phrases.POINT_UNIT);
+    }
+
+    private void queryAssets(Player player) {
         Assets assets = player.getAssets();
         int[] landCount = getLandCount(assets);
-        List<Prop> propList = player.getProp();
-        int[] propCount = getPropCount(propList);
-        IO.writeTo(Phrases.MONEY + money + Phrases.MONEY_UNIT);
-        IO.writeTo(Phrases.POINTS + points + Phrases.POINT_UNIT);
         IO.writeTo(Phrases.ASSETS + Phrases.OPENSPACE + landCount[0] + Phrases.ASSETS_UNIT +
                 Phrases.MAO_WU + landCount[1] + Phrases.ASSETS_UNIT +
                 Phrases.YANG_LOU + landCount[2] + Phrases.ASSETS_UNIT +
                 Phrases.MO_TIAN_LOU + landCount[3] + Phrases.ASSETS_UNIT);
-        IO.writeTo(Phrases.PROP + Phrases.ROAD_BLOCK_NAME + propCount[0] + Phrases.PROP_UNIT +
-                Phrases.ROBOT_NAME + propCount[1] + Phrases.PROP_UNIT +
-                Phrases.BOMB_NAME + propCount[2] + Phrases.PROP_UNIT);
+
     }
 
     private int[] getLandCount(Assets assets) {
@@ -58,30 +73,4 @@ public class QueryCommand implements Command {
         int[] count = {openSpace, maoWu, yangLou, moTianLou};
         return count;
     }
-
-    private int[] getPropCount(List<Prop> propList) {
-        int roadBlock = 0;
-        int robot = 0;
-        int bomb = 0;
-        for (Prop prop : propList) {
-            switch (prop.getCode()) {
-                case 1:
-                    roadBlock++;
-                    break;
-                case 2:
-                    robot++;
-                    break;
-                case 3:
-                    bomb++;
-                    break;
-                default:
-                    throw new AssertionError();
-            }
-        }
-        int[] count = {roadBlock, robot, bomb};
-        return count;
-
-    }
-
-
 }

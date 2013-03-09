@@ -8,10 +8,10 @@ import com.jing.rich.tools.Phrases;
 public class RollCommand implements Command {
 
     @Override
-    public void execute(Map map, Player player) {
+    public void execute(RichMap richMap, Player player) {
         int step = Dice.roll();
         IO.writeTo(player.getRole().getName() + Phrases.MOVE + step + Phrases.MOVE_UNIT);
-        player.move(step, map);
-        player.reachPlaceActions(map);
+        player.move(step, richMap);
+        player.reachPlaceActions(richMap);
     }
 }

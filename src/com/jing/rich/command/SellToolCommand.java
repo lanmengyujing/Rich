@@ -1,6 +1,6 @@
 package com.jing.rich.command;
 
-import com.jing.rich.Map;
+import com.jing.rich.RichMap;
 import com.jing.rich.Player;
 import com.jing.rich.exception.GameException;
 import com.jing.rich.tools.IO;
@@ -15,7 +15,7 @@ public class SellToolCommand implements Command {
     }
 
     @Override
-    public void execute(Map map, Player player) throws GameException {
+    public void execute(RichMap richMap, Player player) throws GameException {
         Prop prop = Prop.getPropByCode(number);
         player.sellProp(prop);
         IO.writeTo(Phrases.SELLTOOL + prop.getName());

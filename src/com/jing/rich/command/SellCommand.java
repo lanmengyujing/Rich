@@ -1,7 +1,7 @@
 package com.jing.rich.command;
 
+import com.jing.rich.RichMap;
 import com.jing.rich.tools.IO;
-import com.jing.rich.Map;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
 import com.jing.rich.exception.GameException;
@@ -18,13 +18,13 @@ public class SellCommand implements Command {
     }
 
     @Override
-    public void execute(Map map, Player player) throws GameException {
+    public void execute(RichMap richMap, Player player) throws GameException {
         if (number < 0 || number > Phrases.GROUND_COUNT) {
             throw new NumberOfLandNotFoundException();
-        } else if (!(map.getGround(number) instanceof Land)) {
+        } else if (!(richMap.getGround(number) instanceof Land)) {
             throw new NumberOfLandNotFoundException();
         }
-        Land land = (Land) map.getGround(number);
+        Land land = (Land) richMap.getGround(number);
         sellLand(player, land);
     }
 

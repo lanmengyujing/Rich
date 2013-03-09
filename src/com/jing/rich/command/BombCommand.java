@@ -1,6 +1,6 @@
 package com.jing.rich.command;
 
-import com.jing.rich.Map;
+import com.jing.rich.RichMap;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
 import com.jing.rich.exception.GameException;
@@ -18,14 +18,14 @@ public class BombCommand implements Command {
     }
 
     @Override
-    public void execute(Map map, Player player) throws GameException {
+    public void execute(RichMap richMap, Player player) throws GameException {
         if (number < -10 || number > 10) {
             throw new WrongNumberForStep();
-        } else if (!(player.getProp().contains(Prop.BOMB))) {
+        } else if (!(player.getProp().containsKey(Prop.BOMB))) {
             throw new PropNotOwnException();
         } else {
             int position = (player.getPosition() + number) % Phrases.GROUND_COUNT;
-            Ground ground = map.getGround(position);
+            Ground ground = richMap.getGround(position);
             if (ground.hasProp()) {
                 throw new PropPositonException();
             }

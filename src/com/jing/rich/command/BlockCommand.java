@@ -1,6 +1,6 @@
 package com.jing.rich.command;
 
-import com.jing.rich.Map;
+import com.jing.rich.RichMap;
 import com.jing.rich.exception.*;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
@@ -16,14 +16,14 @@ public class BlockCommand implements Command {
     }
 
     @Override
-    public void execute(Map map, Player player) throws GameException {
+    public void execute(RichMap richMap, Player player) throws GameException {
         if (number < -10 || number > 10) {
             throw new WrongNumberForStep();
-        } else if (!(player.getProp().contains(Prop.ROAD_BLOCK))) {
+        } else if (!(player.getProp().containsKey(Prop.ROAD_BLOCK))) {
             throw new PropNotOwnException();
         } else {
             int position = (player.getPosition() + number) % Phrases.GROUND_COUNT;
-            Ground ground = map.getGround(position);
+            Ground ground = richMap.getGround(position);
             if (ground.hasProp()) {
                 throw new PropPositonException();
             }else if(ground.hasPlayer()){

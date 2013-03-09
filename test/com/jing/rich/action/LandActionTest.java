@@ -1,7 +1,7 @@
 package com.jing.rich.action;
 
+import com.jing.rich.RichMap;
 import com.jing.rich.tools.Assets;
-import com.jing.rich.Map;
 import com.jing.rich.Player;
 import com.jing.rich.Role;
 import com.jing.rich.ground.Land;
@@ -22,7 +22,7 @@ public class LandActionTest {
         Player jinBei = new Player(0, 1000,Role.JIN_BEI_BEI, new Assets());
         land = new Land(200);
         land.setOwner(jinBei);
-        landAction = new LandAction(qFuRen,land, Map.getInstance());
+        landAction = new LandAction(qFuRen,land, RichMap.getInstance());
     }
 
     @Test

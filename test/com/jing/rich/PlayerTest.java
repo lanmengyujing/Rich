@@ -25,58 +25,54 @@ import static org.junit.Assert.assertTrue;
  */
 public class PlayerTest {
     private Player player;
-    Map map;
+    RichMap richMap;
     @Before
     public void setup(){
         player = new Player(0, 1000,Role.A_TU_BO, new Assets());
-        map = Map.getInstance();
+        richMap = RichMap.getInstance();
     }
 
-    @Test
-    public void should_Player_has_money_of_1000_when_start(){
-        assertThat(player.getMoney(),is(1000));
-    }
 
     @Test
-    public void should_player1_in_6_when_roll_6(){
-        player.move(6, map);
+    public void shouldPlayer1In6whenRoll6(){
+        player.move(6, this.richMap);
         int index = player.getPosition();
-        Map map = Map.getInstance();
-        assertTrue( map.getGround(index) instanceof Land);
+        RichMap richMap = RichMap.getInstance();
+        assertTrue( richMap.getGround(index) instanceof Land);
     }
 
     @Test
-    public void should_Player_in_0_when_last_position_69_and_roll_1_(){
+    public void shouldPlayerIn0WhenLastPosition69andRollFor1(){
         player.setPosition(69);
-        player.move(1,map);
+        player.move(1, richMap);
         assertThat(player.getPosition(),is(0));
     }
 
 
     @Test
-    public void should_show_last_player_when_two_players_in_one_place(){
+    public void shouldShowLastPlayerWhenTwoPlayersInOnePlace(){
         Player jinBei = new Player(0, 1000,Role.JIN_BEI_BEI, new Assets());
-        player.move(6,map);
-        jinBei.move(6,map);
-        Ground ground = map.getGround(6);
+        player.move(6, richMap);
+        jinBei.move(6, richMap);
+        Ground ground = richMap.getGround(6);
         assertThat(ground.getCurPlayer(),is(jinBei));
     }
 
     @Test
-    public void should_show_pre_player_when_one_player_left(){
+    public void shouldShowPrePlayerWhenOnePlayerLeft(){
         Player jinBei = new Player(0, 1000,Role.JIN_BEI_BEI, new Assets());
         Player qFuRen = new Player(0, 1000,Role.QIAN_FU_REN, new Assets());
-        player.move(6,map);
-        jinBei.move(6,map);
-        qFuRen.move(6,map);
-        player.move(3,map);
-        Ground ground = map.getGround(6);
+        player.move(6, richMap);
+        jinBei.move(6, richMap);
+        qFuRen.move(6, richMap);
+        player.move(3, richMap);
+        Ground ground = richMap.getGround(6);
         assertThat(ground.getCurPlayer(),is(qFuRen));
     }
 
     @Test
     public void shouldPlayerOwnLandWhenBuy(){
-        Ground ground = map.getGround(6);
+        Ground ground = richMap.getGround(6);
         Land land = (Land)ground;
         player.buyLand(land);
         assertThat(land.getOwner(),is(player));
@@ -84,7 +80,7 @@ public class PlayerTest {
 
     @Test
     public void testUpDateLand(){
-        Ground ground = map.getGround(6);
+        Ground ground = richMap.getGround(6);
         Land land = (Land)ground;
         player.buyLand(land);
         player.upDateLand(land);
@@ -94,7 +90,7 @@ public class PlayerTest {
     @Test
     public void shouldPlayerBuyFailWhenLandHasOwner(){
         Player qFuRen = new Player(0, 1000,Role.QIAN_FU_REN, new Assets());
-        Ground ground = map.getGround(6);
+        Ground ground = richMap.getGround(6);
         Land land = (Land)ground;
         player.buyLand(land);
         assertThat(qFuRen.buyLand(land), is(false));
@@ -102,7 +98,7 @@ public class PlayerTest {
 
     @Test
     public void shouldPlayerMoneyReducedWhenBuySucessLand(){
-        Ground ground = map.getGround(6);
+        Ground ground = richMap.getGround(6);
         Land land = (Land)ground;
         player.buyLand(land);
         assertThat(player.getMoney(),is(800));
@@ -112,7 +108,7 @@ public class PlayerTest {
 
     @Test
     public void shouldMoneyIncreaseWhenSoldLand(){
-        Ground ground = map.getGround(6);
+        Ground ground = richMap.getGround(6);
         Land land = (Land)ground;
         player.buyLand(land);
         player.sellLand(land);
@@ -139,28 +135,28 @@ public class PlayerTest {
 
     @Test
     public void shouldPlayerBeBloggedWhenInPrison(){
-        player.move(49,map);
-        player.reachPlaceActions(map);
+        player.move(49, richMap);
+        player.reachPlaceActions(richMap);
         assertThat(player.isBogged(),is(true));
     }
 
     @Test
     public void shouldPlayerPointsIncreasePassMine(){
-        player.move(65, map);
-        player.reachPlaceActions(map);
+        player.move(65, richMap);
+        player.reachPlaceActions(richMap);
         assertThat(player.getPoints(),is(80));
     }
 
     @Test
     public void shouldPlayerLoseMoneyWhenBuyLand(){
-        Ground ground = map.getGround(6);
+        Ground ground = richMap.getGround(6);
         player.buyLand(ground);
         assertThat(player.getMoney(),is(800));
     }
 
     @Test
     public void shouldPlayerGetMoneyWhenSellLand(){
-        Ground ground = map.getGround(6);
+        Ground ground = richMap.getGround(6);
         player.buyLand(ground);
         player.sellLand((Land)ground);
         assertThat(player.getMoney(),is(1200));
@@ -171,7 +167,7 @@ public class PlayerTest {
     @Test
     public void shouldPlayerBankruptWhenOutOfMoney(){
         Player jinBeiBei = new Player(0, 200,Role.JIN_BEI_BEI, new Assets());
-        Ground ground = map.getGround(6);
+        Ground ground = richMap.getGround(6);
         jinBeiBei.buyLand(ground);
         assertThat(jinBeiBei.isBankrupt(),is(true));
     }
@@ -201,27 +197,27 @@ public class PlayerTest {
 
     @Test
     public void shouldPlayerInHospitalWhenPassBomb(){
-        Ground ground = map.getGround(4);
+        Ground ground = richMap.getGround(4);
         ground.addProp(Prop.BOMB);
-        player.move(6, map);
+        player.move(6, richMap);
         assertThat(player.getPosition(),is(Phrases.HOSPITAL_POS));
     }
 
     @Test
     public void shouldPlayerBeStoppedWhenPassBlock(){
-        Ground ground = map.getGround(4);
+        Ground ground = richMap.getGround(4);
         ground.addProp(Prop.ROAD_BLOCK);
-        player.move(6, map);
+        player.move(6, richMap);
         assertThat(player.getPosition(),is(4));
     }
 
     @Test
     public void shouldPlayerMoveUseRobotWhenPassBlock() throws PropNotOwnException {
-        Ground ground = map.getGround(4);
+        Ground ground = richMap.getGround(4);
         ground.addProp(Prop.ROAD_BLOCK);
         player.buyProp(Prop.ROBOT);
-        player.useRobot(map);
-        player.move(6, map);
+        player.useRobot(richMap);
+        player.move(6, richMap);
         assertThat(player.getPosition(),is(6));
     }
 }

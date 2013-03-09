@@ -33,7 +33,7 @@ public class Game {
     }
 
     private List<Player> players = new ArrayList<Player>();
-    private Map map;
+    private RichMap richMap;
     public static int INIT_CASH = 10000;
 
     public void setPlayers(List<Player> players) {
@@ -47,8 +47,8 @@ public class Game {
     }
 
     private void initMap() {
-        map = Map.getInstance();
-        MapPrinter.printMap(map);
+        richMap = RichMap.getInstance();
+        MapPrinter.printMap(richMap);
     }
 
     private void initCash() {
@@ -87,6 +87,10 @@ public class Game {
             try {
                 players = parser.parsePlayersInitCommand(playersStr);
                 setPlayers(players);
+                IO.writeTo(Phrases.CHOSEN_PLAYERS);
+                for(Player player: players){
+                    IO.writeTo(player.getName());
+                }
                 break;
             } catch (NumberFormatException e) {
                 IO.writeTo(Phrases.WRONG_COMMAND);
@@ -100,8 +104,8 @@ public class Game {
         int index = -1;
         while (!judgeGameOver()) {
             Player player = players.get((index + 1) % players.size());
-            startAction(player, map);
-            MapPrinter.printMap(map);
+            startAction(player, richMap);
+            MapPrinter.printMap(richMap);
             if (judgeRemovePlayer(player)) {
                 index--;
             }
@@ -113,7 +117,7 @@ public class Game {
         }
     }
 
-    public void startAction(Player player, Map map) {
+    public void startAction(Player player, RichMap richMap) {
         player.reduceFreePass();
         if (player.isBogged()) {
             IO.writeTo(player.getRole().getName() + Phrases.LUN_KONG);
@@ -122,7 +126,7 @@ public class Game {
         while (true) {
             try {
                 Command command = getCommand(player);
-                command.execute(map, player);
+                command.execute(richMap, player);
                 if (command instanceof RollCommand) {
                     IO.writeTo(player.getRole().getName() + Phrases.HUIHE_JIESU);
                     break;
