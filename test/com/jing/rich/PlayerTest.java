@@ -84,7 +84,7 @@ public class PlayerTest {
         Land land = (Land)ground;
         player.buyLand(land);
         player.upDateLand(land);
-        assertThat(land.getLevel(),is(1));
+        assertThat(land.getLevel().getCode(),is(1));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void shouldPlayerMoneyReducedWhenBuySucessLand(){
+    public void shouldPlayerMoneyReducedWhenBuySuccessLand(){
         Ground ground = richMap.getGround(6);
         Land land = (Land)ground;
         player.buyLand(land);
@@ -117,19 +117,19 @@ public class PlayerTest {
 
     @Test
     public void shouldPlayerIncreasePointsWhenSelectPointsCard(){
-        player.addGiftCard(GiftCard.POINTSCARD);
+        player.addGiftCard(GiftCard.POINTS_CARD);
         assertThat(player.getPoints(),is(200));
     }
 
     @Test
     public void shouldPlayerIncreaseMoneyWhenSelectBonusCard(){
-        player.addGiftCard(GiftCard.BONUSCARD);
+        player.addGiftCard(GiftCard.BONUS_CARD);
         assertThat(player.getMoney(),is(3000));
     }
 
     @Test
     public void shouldPlayerHasFushenWhenSelectFuShenCard(){
-        player.addGiftCard(GiftCard.FUSHENCARD);
+        player.addGiftCard(GiftCard.FUSHEN_CARD);
         assertThat(player.getFuShenTimes(),is(5));
     }
 

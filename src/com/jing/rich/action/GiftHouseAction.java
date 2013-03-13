@@ -30,19 +30,19 @@ public class GiftHouseAction extends AbstractReachPlaceAction {
     }
 
     private void parseGift(int num) {
-        GiftCard giftCard = null;
-        String giftTip = null;
+        GiftCard giftCard;
+        String giftTip;
         switch (num) {
             case 1:
-                giftCard = GiftCard.BONUSCARD;
+                giftCard = GiftCard.BONUS_CARD;
                 giftTip = Phrases.BOUNUS_TIP;
                 break;
             case 2:
-                giftCard = GiftCard.POINTSCARD;
+                giftCard = GiftCard.POINTS_CARD;
                 giftTip = Phrases.POINTS_TIP;
                 break;
             case 3:
-                giftCard = GiftCard.FUSHENCARD;
+                giftCard = GiftCard.FUSHEN_CARD;
                 giftTip = Phrases.FUSHEN_TIP;
                 break;
             default:

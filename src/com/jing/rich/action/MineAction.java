@@ -18,4 +18,5 @@ public class MineAction extends AbstractReachPlaceAction {
         player.addPoints(points);
         IO.writeTo(Phrases.GET_POINTS + points);
     }
+
 }

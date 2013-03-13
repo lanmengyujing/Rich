@@ -15,4 +15,5 @@ public class MagicHouseAction extends AbstractReachPlaceAction {
     public void action() {
         IO.writeTo(Phrases.MAGIC_HOUSE_TIP);
     }
+
 }

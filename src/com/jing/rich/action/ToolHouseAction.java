@@ -47,7 +47,7 @@ public class ToolHouseAction extends AbstractReachPlaceAction {
     }
 
     private void parseProp(int num) {
-        Prop prop = null;
+        Prop prop;
         switch (num) {
             case 1:
                 prop = Prop.ROAD_BLOCK;

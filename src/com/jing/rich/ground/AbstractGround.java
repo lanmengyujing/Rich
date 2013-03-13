@@ -1,6 +1,8 @@
 package com.jing.rich.ground;
 
 import com.jing.rich.Player;
+import com.jing.rich.RichMap;
+import com.jing.rich.action.ReachPlaceAction;
 import com.jing.rich.tools.Prop;
 
 import java.util.ArrayList;
@@ -11,6 +13,10 @@ public abstract class AbstractGround implements Ground {
     protected int number;
     protected Prop prop;
     protected List<Player> playerList = new ArrayList<Player>();
+
+    abstract public String getSign();
+
+    abstract public ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap);
 
     public int getNumber() {
         return number;
@@ -36,10 +42,10 @@ public abstract class AbstractGround implements Ground {
     }
 
     public boolean hasProp() {
-        if (prop != null) {
-            return true;
+        if (prop == null) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -49,6 +55,8 @@ public abstract class AbstractGround implements Ground {
         }
         return true;
     }
+
+
 
     public void addPlayer(Player player) {
         playerList.add(player);
@@ -66,7 +74,7 @@ public abstract class AbstractGround implements Ground {
         return player;
     }
 
-    abstract public String getSign();
+
 
 
     @Override
@@ -83,5 +91,6 @@ public abstract class AbstractGround implements Ground {
         }
         return false;
     }
-
 }
+
+

@@ -28,8 +28,8 @@ public class Game {
     public static Color defaultForeground = Color.white;
     public static Color defaultBackground = Color.black;
     static {
-        TextAttributes defautAttrs = new TextAttributes(defaultForeground, defaultBackground);
-        console.setTextAttributes(defautAttrs);
+        TextAttributes defaultAttrs = new TextAttributes(defaultForeground, defaultBackground);
+        console.setTextAttributes(defaultAttrs);
     }
 
     private List<Player> players = new ArrayList<Player>();
@@ -133,7 +133,6 @@ public class Game {
                 }
             } catch (GameException e) {
                 IO.writeTo(e.getMessage());
-                continue;
             }
         }
     }
@@ -144,8 +143,7 @@ public class Game {
             String commandStr = IO.readLine();
             CommandParser parser = new CommandParser();
             try {
-                Command command = parser.ParseCommand(commandStr);
-                return command;
+                return parser.ParseCommand(commandStr);
             } catch (CommandNotFoundException e) {
                 IO.writeTo(e.getMessage());
             }
@@ -155,6 +153,9 @@ public class Game {
     public boolean judgeRemovePlayer(Player player) {
         if (player.isBankrupt()) {
             IO.writeTo(player.getName() + Phrases.BANKRUPT);
+            if(player.getAssets()!= null) {
+                player.getAssets().removeAll();
+            }
             players.remove(player);
             return true;
         }

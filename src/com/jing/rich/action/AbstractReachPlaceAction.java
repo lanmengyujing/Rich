@@ -13,4 +13,5 @@ public abstract class AbstractReachPlaceAction implements ReachPlaceAction {
     }
 
     abstract public void action();
+
 }

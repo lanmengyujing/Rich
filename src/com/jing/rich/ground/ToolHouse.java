@@ -1,5 +1,10 @@
 package com.jing.rich.ground;
 
+import com.jing.rich.Player;
+import com.jing.rich.RichMap;
+import com.jing.rich.action.ReachPlaceAction;
+import com.jing.rich.action.ToolHouseAction;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -11,5 +16,10 @@ public class ToolHouse extends AbstractGround {
     @Override
     public String getSign() {
         return "T";
+    }
+
+    @Override
+    public ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap) {
+        return new ToolHouseAction(player, ground);
     }
 }

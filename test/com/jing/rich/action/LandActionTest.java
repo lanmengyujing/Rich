@@ -26,29 +26,29 @@ public class LandActionTest {
     }
 
     @Test
-    public void testPayTollToOwner() throws Exception {
-        int toll = landAction.PayTollToOwner(land.getOwner(),land);
-        assertThat(toll,is(100));
+    public void testPayTollToOwner(){
+        landAction.action();
+        assertThat(qFuRen.getMoney(),is(900));
     }
 
     @Test
     public void testPayTollToOwnerWhenHasFuShenCard() throws Exception {
-        qFuRen.addGiftCard(GiftCard.FUSHENCARD);
-        int toll = landAction.PayTollToOwner(land.getOwner(),land);
-        assertThat(toll,is(0));
+        qFuRen.addGiftCard(GiftCard.FUSHEN_CARD);
+        landAction.action();
+        assertThat(qFuRen.getMoney(),is(1000));
     }
 
     @Test
     public void testPayTollWhenOwnerInHospital() throws Exception {
         land.getOwner().setPosition(14);
-        int toll = landAction.PayTollToOwner(land.getOwner(),land);
-        assertThat(toll,is(0));
+        landAction.action();
+        assertThat(qFuRen.getMoney(),is(1000));
     }
 
     @Test
     public void testPayTollWhenOwnerInPrison() throws Exception {
         land.getOwner().setPosition(49);
-        int toll = landAction.PayTollToOwner(land.getOwner(),land);
-        assertThat(toll,is(0));
+        landAction.action();
+        assertThat(qFuRen.getMoney(),is(1000));
     }
 }

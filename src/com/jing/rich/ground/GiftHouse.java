@@ -1,5 +1,10 @@
 package com.jing.rich.ground;
 
+import com.jing.rich.Player;
+import com.jing.rich.RichMap;
+import com.jing.rich.action.GiftHouseAction;
+import com.jing.rich.action.ReachPlaceAction;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -12,4 +17,10 @@ public class GiftHouse extends AbstractGround {
     public String getSign() {
         return "G";
     }
+
+    @Override
+    public ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap) {
+        return new GiftHouseAction(player, ground);
+    }
+
 }

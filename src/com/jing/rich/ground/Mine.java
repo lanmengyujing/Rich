@@ -1,6 +1,12 @@
 package com.jing.rich.ground;
 
 
+import com.jing.rich.Player;
+import com.jing.rich.RichMap;
+import com.jing.rich.action.MineAction;
+import com.jing.rich.action.PrisonAction;
+import com.jing.rich.action.ReachPlaceAction;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -18,6 +24,11 @@ public class Mine extends AbstractGround {
     @Override
     public String getSign() {
         return "$";
+    }
+
+    @Override
+    public ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap) {
+        return new MineAction(player, ground);
     }
 
     public int getPoints() {

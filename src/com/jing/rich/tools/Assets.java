@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class Assets {
-    List<Land> assetsList = new ArrayList<Land>();
+    private List<Land> assetsList = new ArrayList<Land>();
 
     public void addAssets(Land land) {
         assetsList.add(land);

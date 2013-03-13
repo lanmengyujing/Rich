@@ -12,4 +12,5 @@ public class HospitalAction extends AbstractReachPlaceAction {
     public void action() {
 
     }
+
 }

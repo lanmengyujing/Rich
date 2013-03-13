@@ -1,16 +1,19 @@
 package com.jing.rich.ground;
 
 
-/**
- * Created with IntelliJ IDEA.
- * User: Administrator
- * Date: 14-2-6
- * Time: 下午7:25
- * To change this template use File | Settings | File Templates.
- */
+import com.jing.rich.Player;
+import com.jing.rich.RichMap;
+import com.jing.rich.action.HospitalAction;
+import com.jing.rich.action.ReachPlaceAction;
+
 public class Hospital extends AbstractGround {
     @Override
     public String getSign() {
         return "H";
+    }
+
+    @Override
+    public ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap) {
+        return new HospitalAction(player, ground);
     }
 }

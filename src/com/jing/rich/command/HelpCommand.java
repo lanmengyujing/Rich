@@ -7,7 +7,6 @@ import com.jing.rich.Player;
 
 public class HelpCommand implements Command {
 
-
     @Override
     public void execute(RichMap richMap, Player player) {
         IO.writeTo(Phrases.HELP_MENU);

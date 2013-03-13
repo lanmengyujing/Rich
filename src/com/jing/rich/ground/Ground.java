@@ -1,6 +1,10 @@
 package com.jing.rich.ground;
 
 import com.jing.rich.Player;
+import com.jing.rich.RichMap;
+import com.jing.rich.action.GiftHouseAction;
+import com.jing.rich.action.LandAction;
+import com.jing.rich.action.ReachPlaceAction;
 import com.jing.rich.tools.Prop;
 
 public interface Ground {
@@ -25,4 +29,6 @@ public interface Ground {
     public boolean hasProp();
 
     public boolean hasPlayer();
+
+    ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap);
 }

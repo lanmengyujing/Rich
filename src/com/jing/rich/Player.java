@@ -102,12 +102,6 @@ public class Player {
         position = (position + step) % Phrases.GROUND_COUNT;
     }
 
-    private void addPlayerToCurPosition(RichMap richMap) {
-        int position = getPosition();
-        Ground ground = richMap.getGround(position);
-        ground.addPlayer(this);
-    }
-
     private void removePlayerFromPrePosition(RichMap richMap) {
         Ground ground = richMap.getGround(position);
         if (!(ground instanceof StartPoint)) {
@@ -115,33 +109,22 @@ public class Player {
         }
     }
 
-    public void reachPlaceActions(RichMap richMap) {
+    private void addPlayerToCurPosition(RichMap richMap) {
         int position = getPosition();
         Ground ground = richMap.getGround(position);
-
-        ReachPlaceAction placeAction = null;
-        if (ground instanceof Land) {
-            placeAction = new LandAction(this, ground, richMap);
-        } else if (ground instanceof GiftHouse) {
-            placeAction = new GiftHouseAction(this, ground);
-        } else if (ground instanceof Hospital) {
-            placeAction = new HospitalAction(this, ground);
-        } else if (ground instanceof MagicHouse) {
-            placeAction = new MagicHouseAction(this, ground);
-        } else if (ground instanceof ToolHouse) {
-            placeAction = new ToolHouseAction(this, ground);
-        } else if (ground instanceof Prison) {
-            placeAction = new PrisonAction(this, ground);
-        } else if (ground instanceof StartPoint) {
-            placeAction = new StartPointAction(this, ground);
-        } else if (ground instanceof Mine) {
-            placeAction = new MineAction(this, ground);
-        }
-        if (null != placeAction) {
-            placeAction.action();
-        }
+        ground.addPlayer(this);
     }
 
+    public void reachPlaceActions(RichMap richMap) {
+        ReachPlaceAction placeAction = getActionType(richMap);
+        placeAction.action();
+    }
+
+    private ReachPlaceAction getActionType(RichMap richMap){
+        int position = getPosition();
+        Ground ground = richMap.getGround(position);
+        return ground.getActionType(this, ground, richMap);
+    }
 
     public Role getRole() {
         return role;
@@ -185,9 +168,9 @@ public class Player {
     }
 
     public void addGiftCard(GiftCard giftCard) {
-        if (giftCard.equals(GiftCard.BONUSCARD)) {
+        if (giftCard.equals(GiftCard.BONUS_CARD)) {
             addMoney(giftCard.getValue());
-        } else if (giftCard.equals(GiftCard.POINTSCARD)) {
+        } else if (giftCard.equals(GiftCard.POINTS_CARD)) {
             addPoints(giftCard.getValue());
         } else {
             setFuShenTime(5);

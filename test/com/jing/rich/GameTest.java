@@ -46,7 +46,7 @@ public class GameTest {
     }
 
     @Test
-    public void getWinerWhenGameOver(){
+    public void getWinnerWhenGameOver(){
         playerList.add(jinBeiBei);
         playerList.add(aTuBo);
         game.setPlayers(playerList);

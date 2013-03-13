@@ -1,6 +1,11 @@
 package com.jing.rich.ground;
 
 
+import com.jing.rich.Player;
+import com.jing.rich.RichMap;
+import com.jing.rich.action.ReachPlaceAction;
+import com.jing.rich.action.StartPointAction;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -12,5 +17,10 @@ public class StartPoint extends AbstractGround {
     @Override
     public String getSign() {
         return "S";
+    }
+
+    @Override
+    public ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap) {
+        return new StartPointAction(player, ground);
     }
 }

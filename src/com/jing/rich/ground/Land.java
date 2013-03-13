@@ -1,5 +1,9 @@
 package com.jing.rich.ground;
 
+import com.jing.rich.RichMap;
+import com.jing.rich.action.LandAction;
+import com.jing.rich.action.ReachPlaceAction;
+import com.jing.rich.tools.Level;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
 import com.jing.rich.exception.UpdateException;
@@ -13,12 +17,12 @@ import com.jing.rich.tools.Prop;
  * To change this template use File | Settings | File Templates.
  */
 public class Land extends AbstractGround {
-    private int level;
+    private Level level;
     private Player owner;
     private int price;
 
     public Land(int initPrice) {
-        level = 0;
+        level = Level.OPEN_SPACE;
         price = initPrice;
     }
 
@@ -26,16 +30,16 @@ public class Land extends AbstractGround {
     public String getSign() {
         String sign;
         switch (level) {
-            case 0:
+            case OPEN_SPACE:
                 sign = "0";
                 break;
-            case 1:
+            case MAO_WU:
                 sign = "1";
                 break;
-            case 2:
+            case YANG_FANG:
                 sign = "2";
                 break;
-            case 3:
+            case MO_TIAN_LOU:
                 sign = "3";
                 break;
             default:
@@ -44,7 +48,12 @@ public class Land extends AbstractGround {
         return sign;
     }
 
-    public int getLevel() {
+    @Override
+    public ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap) {
+        return new LandAction(player, ground, richMap);
+    }
+
+    public Level getLevel() {
         return level;
     }
 
@@ -61,12 +70,12 @@ public class Land extends AbstractGround {
     }
 
     public int getToll() {
-        return price * (level + 1) / 2;
+        return price * (level.getCode() + 1) / 2;
     }
 
     public void upDate() throws UpdateException {
-        if (level < 3) {
-            ++level;
+        if (!level.equals(Level.MO_TIAN_LOU)) {
+            level = level.nextLevel();
         } else {
             throw new UpdateException();
         }
@@ -76,38 +85,20 @@ public class Land extends AbstractGround {
         重置土地，变为空地
     */
     public void reSetting() {
-        level = 0;
+        level = Level.OPEN_SPACE;
         owner = null;
     }
 
     public int calculateValue() {
-        return (price + level * price) * 2;
+        return (price + level.getCode() * price) * 2;
     }
 
     public String toString() {
-        String str = "Land";
-        return str;
+        return  "Land";
     }
 
     public String getName() {
-        String name;
-        switch (level) {
-            case 0:
-                name = Phrases.OPENSPACE;
-                break;
-            case 1:
-                name = Phrases.MAO_WU;
-                break;
-            case 2:
-                name = Phrases.YANG_LOU;
-                break;
-            case 3:
-                name = Phrases.MO_TIAN_LOU;
-                break;
-            default:
-                throw new AssertionError();
-        }
-        return name;
+        return level.getName();
     }
 
 }

@@ -21,8 +21,8 @@ public class QueryCommand implements Command {
 
     private void queryProp(Player player) {
         Map<Prop, Integer> props = player.getProp();
-        for(Map.Entry<Prop, Integer> entry: props.entrySet()) {
-            System.out.print(entry.getKey().getName() + " "+ entry.getValue() + Phrases.PROP_UNIT);
+        for (Map.Entry<Prop, Integer> entry : props.entrySet()) {
+            System.out.print(entry.getKey().getName() + " " + entry.getValue() + Phrases.PROP_UNIT);
         }
         IO.newLine();
     }
@@ -54,16 +54,16 @@ public class QueryCommand implements Command {
         int moTianLou = 0;
         for (Land land : assets.getAssetsList()) {
             switch (land.getLevel()) {
-                case 0:
+                case OPEN_SPACE:
                     openSpace++;
                     break;
-                case 1:
+                case MAO_WU:
                     maoWu++;
                     break;
-                case 2:
+                case YANG_FANG:
                     yangLou++;
                     break;
-                case 3:
+                case MO_TIAN_LOU:
                     moTianLou++;
                     break;
                 default:

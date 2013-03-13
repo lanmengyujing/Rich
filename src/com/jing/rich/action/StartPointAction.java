@@ -13,4 +13,5 @@ public class StartPointAction extends AbstractReachPlaceAction {
     public void action() {
 
     }
+
 }

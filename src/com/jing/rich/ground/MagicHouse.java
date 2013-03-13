@@ -1,5 +1,10 @@
 package com.jing.rich.ground;
 
+import com.jing.rich.Player;
+import com.jing.rich.RichMap;
+import com.jing.rich.action.MagicHouseAction;
+import com.jing.rich.action.ReachPlaceAction;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -11,5 +16,10 @@ public class MagicHouse extends AbstractGround {
     @Override
     public String getSign() {
         return "M";
+    }
+
+    @Override
+    public ReachPlaceAction getActionType(Player player, Ground ground, RichMap richMap) {
+        return new MagicHouseAction(player, ground);
     }
 }

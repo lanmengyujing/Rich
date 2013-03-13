@@ -15,11 +15,12 @@ public class IO {
         String str = null;
         try {
             str = reader.readLine();
+            str.toLowerCase();
         } catch (IOException e) {
             e.printStackTrace();
             closeIn();
         }
-        return str.toLowerCase();
+        return str;
     }
 
     private static void closeIn() {

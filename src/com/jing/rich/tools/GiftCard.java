@@ -2,9 +2,9 @@ package com.jing.rich.tools;
 
 
 public enum GiftCard {
-    BONUSCARD(Phrases.GIFT_BONUSCARD, 1, 2000),
-    POINTSCARD(Phrases.GIFT_POINTSCARD, 2, 200),
-    FUSHENCARD(Phrases.GIFT_FUSEHNCARD, 3, 5);
+    BONUS_CARD(Phrases.GIFT_BONUSCARD, 1, 2000),
+    POINTS_CARD(Phrases.GIFT_POINTSCARD, 2, 200),
+    FUSHEN_CARD(Phrases.GIFT_FUSEHNCARD, 3, 5);
 
     private String name;
     private int code;

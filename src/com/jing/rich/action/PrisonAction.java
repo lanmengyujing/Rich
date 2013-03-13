@@ -16,4 +16,5 @@ public class PrisonAction extends AbstractReachPlaceAction {
         IO.writeTo(Phrases.IN_PRISON_TIP);
         player.goPrison();
     }
+
 }

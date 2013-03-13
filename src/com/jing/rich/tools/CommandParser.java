@@ -6,8 +6,6 @@ import com.jing.rich.Role;
 import com.jing.rich.command.*;
 import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.exception.WrongNumberForPlayerException;
-import com.jing.rich.tools.Assets;
-import com.jing.rich.tools.Phrases;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.List;
 public class CommandParser {
 
     public Command ParseCommand(String commandString) throws CommandNotFoundException {
-        Command command = null;
+        Command command;
         commandString = commandString.trim();
         String[] commands = commandString.split(" ");
         if (commands.length == 1) {
@@ -32,7 +30,7 @@ public class CommandParser {
     }
 
     private Command createShortCommand(String commandStr) {
-        Command command = null;
+        Command command;
         if (commandStr.equals(Phrases.COMMAND_LIST[0])) {
             command = new RollCommand();
         } else if (commandStr.equals(Phrases.COMMAND_LIST[3])) {
@@ -50,7 +48,7 @@ public class CommandParser {
     }
 
     private Command createLongCommand(String[] commands) throws CommandNotFoundException {
-        Command command = null;
+        Command command;
         String commandStr = commands[0].toLowerCase();
         int number = parseSecondInput(commands);
         if (commandStr.equals(Phrases.COMMAND_LIST[1])) {
