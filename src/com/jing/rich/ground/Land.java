@@ -94,7 +94,7 @@ public class Land extends AbstractGround {
     }
 
     public String toString() {
-        return  "Land";
+        return "Land";
     }
 
     public String getName() {

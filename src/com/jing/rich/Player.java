@@ -77,29 +77,14 @@ public class Player {
     }
 
     private void walkToFront(int step, RichMap richMap) {
-        int pos;
-        for (int i = 1; i <= step; i++) {
-            pos = (position + i) % Phrases.GROUND_COUNT;
-            Ground ground = richMap.getGround(pos);
-            if (ground.hasProp()) {
-                Prop prop = ground.getProp();
-                if (prop.equals(Prop.ROAD_BLOCK)) {
-                    position = pos;
-                    ground.removeProp();
-                    IO.writeTo(getName() + Phrases.BE_BLOCK);
-                    return;
-                } else if (prop.equals(Prop.BOMB)) {
-                    position = Phrases.HOSPITAL_POS;
-                    cancelTimes = Phrases.IN_HOSPITAL_TIME;
-                    ground.removeProp();
-                    IO.writeTo(getName() + Phrases.SEND_TO_H);
-                    return;
-                } else {
-                    throw new AssertionError();
-                }
+        for(int i = 1; i<= step; i++){
+            position = (position + 1) % Phrases.GROUND_COUNT;
+            Ground ground = richMap.getGround(position);
+            GroundState groundState = ground.getState();
+            if(!groundState.walk(ground, this)){
+                break;
             }
         }
-        position = (position + step) % Phrases.GROUND_COUNT;
     }
 
     private void removePlayerFromPrePosition(RichMap richMap) {
@@ -270,5 +255,9 @@ public class Player {
             throw new PropNotOwnException();
         }
 
+    }
+
+    public void setCancelTimes(int times) {
+        this.cancelTimes = times;
     }
 }

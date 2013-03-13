@@ -1,7 +1,6 @@
 package com.jing.rich.ground;
 
-import com.jing.rich.Player;
-import com.jing.rich.RichMap;
+import com.jing.rich.*;
 import com.jing.rich.action.ReachPlaceAction;
 import com.jing.rich.tools.Prop;
 
@@ -13,6 +12,7 @@ public abstract class AbstractGround implements Ground {
     protected int number;
     protected Prop prop;
     protected List<Player> playerList = new ArrayList<Player>();
+    protected GroundState state = new NoPropState();
 
     abstract public String getSign();
 
@@ -32,13 +32,20 @@ public abstract class AbstractGround implements Ground {
 
 
     public void addProp(Prop prop) {
-        if (this.prop == null) {
+        if (!hasProp()) {
             this.prop = prop;
+            if (prop == Prop.BOMB) {
+                state = new HasBombState();
+            }
+            if (prop == Prop.ROAD_BLOCK) {
+                state = new HasBlockState();
+            }
         }
     }
 
     public void removeProp() {
         prop = null;
+        state = new NoPropState();
     }
 
     public boolean hasProp() {
@@ -57,7 +64,6 @@ public abstract class AbstractGround implements Ground {
     }
 
 
-
     public void addPlayer(Player player) {
         playerList.add(player);
     }
@@ -74,7 +80,9 @@ public abstract class AbstractGround implements Ground {
         return player;
     }
 
-
+    public GroundState getState() {
+        return state;
+    }
 
 
     @Override
