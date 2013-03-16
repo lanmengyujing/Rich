@@ -1,10 +1,10 @@
 package com.jing.rich.action;
 
+import com.jing.rich.exception.GameException;
 import com.jing.rich.tools.IO;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.Player;
 import com.jing.rich.tools.CommandParser;
-import com.jing.rich.exception.CommandNotFoundException;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.tools.Prop;
 
@@ -20,12 +20,7 @@ public class ToolHouseAction extends AbstractReachPlaceAction {
         IO.writeTo(Phrases.TOOLHOUSE_TIPS);
         IO.writeTo(Phrases.TOOLHOUSE_EXIT_TIPS);
         while (true) {
-            if (player.getPoints() < Phrases.MIN_POINTS) {
-                IO.writeTo(Phrases.POINTS_NOT_ENOUGH);
-                return;
-            }
-            if (player.getProp().size() == Phrases.MAX_PROP_COUNT) {
-                IO.writeTo(Phrases.HAVE_MAX_PROP);
+            if (isNotAbleToBuyProp()){
                 return;
             }
             IO.writeTo(Phrases.TOOLHOUSE_SELECT_TIPS);
@@ -37,30 +32,29 @@ public class ToolHouseAction extends AbstractReachPlaceAction {
             try {
                 CommandParser parser = new CommandParser();
                 int num = parser.parsePropCommand(commandStr);
-                parseProp(num);
+                Prop prop = Prop.getPropByCode(num);
+                buyProp(prop);
             } catch (NumberFormatException e) {
                 IO.writeTo(Phrases.WRONG_COMMAND);
-            } catch (CommandNotFoundException e) {
-                IO.writeTo(Phrases.WRONG_COMMAND);
+            } catch (GameException e) {
+                IO.writeTo(e.getMessage());
             }
         }
     }
 
-    private void parseProp(int num) {
-        Prop prop;
-        switch (num) {
-            case 1:
-                prop = Prop.ROAD_BLOCK;
-                break;
-            case 2:
-                prop = Prop.ROBOT;
-                break;
-            case 3:
-                prop = Prop.BOMB;
-                break;
-            default:
-                throw new AssertionError();
+    private boolean isNotAbleToBuyProp() {
+        if (player.getPoints() < Phrases.MIN_POINTS) {
+            IO.writeTo(Phrases.POINTS_NOT_ENOUGH);
+            return true;
         }
+        if (player.getProp().size() == Phrases.MAX_PROP_COUNT) {
+            IO.writeTo(Phrases.HAVE_MAX_PROP);
+            return true;
+        }
+        return false;
+    }
+
+    private void buyProp(Prop prop){
         if (player.getPoints() < prop.getPoints()) {
             IO.writeTo(Phrases.NOT_ENOUGH_TIP1 + prop.getPoints() +
                     Phrases.NOT_ENOUGH_TIP2 + prop.getName() + Phrases.PROP);

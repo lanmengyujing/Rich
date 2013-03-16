@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class PlayerTest {
     private Player player;
-    RichMap richMap;
+    private RichMap richMap;
     @Before
     public void setup(){
         player = new Player(0, 1000,Role.A_TU_BO, new Assets());

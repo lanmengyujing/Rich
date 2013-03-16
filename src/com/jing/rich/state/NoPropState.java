@@ -1,5 +1,6 @@
-package com.jing.rich;
+package com.jing.rich.state;
 
+import com.jing.rich.Player;
 import com.jing.rich.ground.Ground;
 
 /**

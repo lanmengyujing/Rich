@@ -2,6 +2,10 @@ package com.jing.rich.ground;
 
 import com.jing.rich.*;
 import com.jing.rich.action.ReachPlaceAction;
+import com.jing.rich.state.GroundState;
+import com.jing.rich.state.HasBlockState;
+import com.jing.rich.state.HasBombState;
+import com.jing.rich.state.NoPropState;
 import com.jing.rich.tools.Prop;
 
 import java.util.ArrayList;
@@ -57,10 +61,7 @@ public abstract class AbstractGround implements Ground {
 
     @Override
     public boolean hasPlayer() {
-        if (playerList.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !playerList.isEmpty();
     }
 
 

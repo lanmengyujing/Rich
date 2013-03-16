@@ -19,7 +19,7 @@ import com.jing.rich.tools.Phrases;
 public class PayToll extends LandActionBehavior {
     private Player owner;
     private Ground ownerPlace;
-    boolean hasToPay = true;
+    private boolean hasToPay = true;
 
     public PayToll(Player owner, Ground ownerPlace) {
         this.owner = owner;
@@ -51,6 +51,8 @@ public class PayToll extends LandActionBehavior {
             int toll = land.getToll();
             player.payToll(toll);
             owner.addMoney(toll);
+            IO.writeTo(player.getName()+ Phrases.PAY_ROLL_TIP + toll);
+            IO.writeTo(owner.getName()+ Phrases.GET_ROLL_TIP + toll);
         }
     }
 

@@ -2,10 +2,7 @@ package com.jing.rich.command;
 
 import com.jing.rich.Player;
 import com.jing.rich.RichMap;
-import com.jing.rich.exception.GameException;
-import com.jing.rich.exception.PropNotOwnException;
-import com.jing.rich.exception.PropPositionException;
-import com.jing.rich.exception.WrongNumberForStep;
+import com.jing.rich.exception.*;
 import com.jing.rich.ground.Ground;
 import com.jing.rich.tools.Phrases;
 import com.jing.rich.tools.Prop;
@@ -17,10 +14,10 @@ import com.jing.rich.tools.Prop;
  * Time: 下午4:43
  * To change this template use File | Settings | File Templates.
  */
-public abstract class UseHinder {
+abstract class PutHinder {
     private int number;
 
-    public UseHinder(int number) {
+    public PutHinder(int number) {
         this.number = number;
     }
 
@@ -34,6 +31,9 @@ public abstract class UseHinder {
             Ground ground = richMap.getGround(position);
             if (ground.hasProp()) {
                 throw new PropPositionException();
+            }
+            if (ground.hasPlayer()){
+                throw new PositionHasPlayerException();
             }
             player.usePro(prop, ground);
         }

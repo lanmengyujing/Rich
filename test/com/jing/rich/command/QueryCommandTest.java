@@ -18,9 +18,9 @@ import static org.junit.Assert.assertThat;
 
 
 public class QueryCommandTest {
-    Player player;
-    RichMap richMap;
-    QueryCommand command;
+    private Player player;
+    private RichMap richMap;
+    private QueryCommand command;
     @Before
     public void setUp() throws Exception {
         player = new Player(0, 1000, Role.A_TU_BO, new Assets());

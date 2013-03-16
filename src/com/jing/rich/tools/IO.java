@@ -15,7 +15,7 @@ public class IO {
         String str = null;
         try {
             str = reader.readLine();
-            str.toLowerCase();
+            str = str.toLowerCase();
         } catch (IOException e) {
             e.printStackTrace();
             closeIn();

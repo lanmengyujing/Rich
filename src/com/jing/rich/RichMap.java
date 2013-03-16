@@ -16,7 +16,6 @@ public class RichMap {
     static private RichMap richMap;
 
     private RichMap() {
-
     }
 
     public static RichMap getInstance() {
@@ -70,10 +69,6 @@ public class RichMap {
 
     public Ground getGround(int index) {
         return landList[index];
-    }
-
-    public Ground getNextGround(int index, int step) {
-        return landList[(index + step) % landList.length];
     }
 
     public Ground[] getGroundList() {

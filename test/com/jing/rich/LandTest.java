@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
 
 
 public class LandTest {
-    Land land;
+    private Land land;
     @Before
     public void setup(){
         land = new Land(200);

@@ -4,6 +4,7 @@ import com.jing.rich.action.*;
 import com.jing.rich.exception.PropNotOwnException;
 import com.jing.rich.exception.UpdateException;
 import com.jing.rich.ground.*;
+import com.jing.rich.state.GroundState;
 import com.jing.rich.tools.*;
 
 import java.util.HashMap;
@@ -198,14 +199,12 @@ public class Player {
     }
 
     public boolean isBogged() {
-        boolean flag;
-        if (cancelTimes > 0) {
-            flag = true;
-        } else {
-            flag = false;
-        }
         cancelTimes--;
-        return flag;
+        if (cancelTimes > 0) {
+            return true;
+        } else {
+          return false;
+        }
     }
 
     public void buyProp(Prop prop) {
@@ -238,23 +237,31 @@ public class Player {
 
     public void useRobot(RichMap richMap) throws PropNotOwnException {
         if (props.containsKey(Prop.ROBOT)) {
-            for (int i = 1; i <= 10; i++) {
-                int pos = (position + i) % Phrases.GROUND_COUNT;
-                Ground ground = richMap.getGround(pos);
-                if (ground.hasProp()) {
-                    ground.removeProp();
-                }
-            }
-            if (props.get(Prop.ROBOT) == 1) {
-                props.remove(Prop.ROBOT);
-            } else {
-                props.put(Prop.ROBOT, props.get(Prop.ROBOT) - 1);
-            }
-            IO.writeTo(Phrases.CLEAR_BLOCK_OR_BOMB);
+            removePropInRange(richMap);
+            decreaseProp();
         } else {
             throw new PropNotOwnException();
         }
 
+    }
+
+    private void removePropInRange(RichMap richMap) {
+        for (int i = 1; i <= 10; i++) {
+            int pos = (position + i) % Phrases.GROUND_COUNT;
+            Ground ground = richMap.getGround(pos);
+            if (ground.hasProp()) {
+                ground.removeProp();
+            }
+        }
+        IO.writeTo(Phrases.CLEAR_BLOCK_OR_BOMB);
+    }
+
+    private void decreaseProp() {
+        if (props.get(Prop.ROBOT) == 1) {
+            props.remove(Prop.ROBOT);
+        } else {
+            props.put(Prop.ROBOT, props.get(Prop.ROBOT) - 1);
+        }
     }
 
     public void setCancelTimes(int times) {

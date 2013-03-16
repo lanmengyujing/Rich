@@ -13,9 +13,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class LandActionTest {
-    LandAction landAction ;
-    Land land;
-    Player qFuRen;
+    private LandAction landAction ;
+    private Land land;
+    private Player qFuRen;
     @Before
     public void setUp() throws Exception {
         qFuRen = new Player(0, 1000, Role.QIAN_FU_REN, new Assets());

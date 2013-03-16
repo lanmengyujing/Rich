@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 
 
 public class CommandParserTest {
-    CommandParser parser;
+    private CommandParser parser;
     @Before
     public void setUp() {
         parser = new CommandParser();
@@ -27,7 +27,7 @@ public class CommandParserTest {
 
     @Test
     public void testParseCommand() throws CommandNotFoundException {
-        Command command = parser.ParseCommand("roll");
+        Command command = parser.ParseCommand("Roll");
         assertThat(command instanceof RollCommand, is(true));
     }
 

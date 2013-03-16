@@ -5,7 +5,7 @@ import com.jing.rich.exception.*;
 import com.jing.rich.Player;
 import com.jing.rich.tools.Prop;
 
-public class BlockCommand extends UseHinder implements Command {
+public class BlockCommand extends PutHinder implements Command {
     public BlockCommand(int number) {
         super(number);
     }

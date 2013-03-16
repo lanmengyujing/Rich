@@ -64,7 +64,6 @@ public class Phrases {
             "点数卡   2\n" +
             "福 神    3";
     public static final String INPUT_TIP = "请输入一个礼品编号，选择一件您喜欢的礼品：";
-    public static final String SELECTED_GIFT = "您获得了";
     public static final String GIFT_FUSEHNCARD = "福神卡";
     public static final String GIFT_POINTSCARD = "点数卡";
     public static final String GIFT_BONUSCARD = "奖金";

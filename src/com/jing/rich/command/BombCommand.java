@@ -5,7 +5,7 @@ import com.jing.rich.Player;
 import com.jing.rich.exception.GameException;
 import com.jing.rich.tools.Prop;
 
-public class BombCommand extends UseHinder implements Command {
+public class BombCommand extends PutHinder implements Command {
     public BombCommand(int number) {
         super(number);
     }

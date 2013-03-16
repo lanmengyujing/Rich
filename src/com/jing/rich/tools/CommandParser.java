@@ -80,32 +80,11 @@ public class CommandParser {
         for (int i = 0; i < command.length(); i++) {
             char number = command.charAt(i);
             int playerNum = Integer.parseInt(String.valueOf(number));
-            Role playerRole = parsePlayerRole(playerNum);
+            Role playerRole = Role.getRoleByNumber(playerNum);
             Player player = new Player(0, Game.INIT_CASH, playerRole, new Assets());
             players.add(player);
         }
         return players;
-    }
-
-    private Role parsePlayerRole(int playerNum) throws WrongNumberForPlayerException {
-        Role playerRole;
-        switch (playerNum) {
-            case 1:
-                playerRole = Role.QIAN_FU_REN;
-                break;
-            case 2:
-                playerRole = Role.A_TU_BO;
-                break;
-            case 3:
-                playerRole = Role.SUN_XIAO_MEI;
-                break;
-            case 4:
-                playerRole = Role.JIN_BEI_BEI;
-                break;
-            default:
-                throw new WrongNumberForPlayerException();
-        }
-        return playerRole;
     }
 
     public int parseGiftCommand(String command) throws CommandNotFoundException {

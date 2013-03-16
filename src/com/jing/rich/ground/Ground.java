@@ -1,6 +1,6 @@
 package com.jing.rich.ground;
 
-import com.jing.rich.GroundState;
+import com.jing.rich.state.GroundState;
 import com.jing.rich.Player;
 import com.jing.rich.RichMap;
 import com.jing.rich.action.ReachPlaceAction;

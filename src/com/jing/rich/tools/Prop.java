@@ -25,30 +25,21 @@ public enum Prop {
         return points;
     }
 
-    public int getCode() {
-        return code;
-    }
-
     public String getName() {
         return name;
     }
 
     public static Prop getPropByCode(int code) throws PropNumberException {
-        Prop prop;
         switch (code) {
             case 1:
-                prop = ROAD_BLOCK;
-                break;
+                return ROAD_BLOCK;
             case 2:
-                prop = ROBOT;
-                break;
+                return  ROBOT;
             case 3:
-                prop = BOMB;
-                break;
+                return  BOMB;
             default:
                 throw new PropNumberException();
         }
-        return prop;
     }
 
     public String getSymbol() {
